@@ -1,0 +1,64 @@
+@font-face {
+    font-family: open-sans;
+    src: url(font/OpenSans-Regular.ttf); 
+}
+* {
+    font-family: open-sans, sans-serif;
+}
+body, html {
+    background-color: #0b0c10;
+    width: 100%;
+    margin: 0px;
+}
+#container {
+    max-width: 75%;
+    min-width: 1000px;
+    min-height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+#head {
+    width: 100%;
+    height: 100px;
+    background-color: #1f2833;
+    margin-bottom: 40px;
+}
+#leftSide {
+    width: 220px;
+    min-height: 600px;
+    background-color: #1f2833;
+    float: left;
+}
+#content {
+    min-height: 600px;
+    float: left;
+    width: calc(100% - 520px); 
+
+}
+#rightSide {
+    width: 300px;
+    min-height: 600px;
+    float: left;
+}
+.headButton {
+    float: right;
+    padding: 20px;
+    border: 1px solid #66fcf1;
+    color: #c5c6c7;
+    font-size: 20px;
+    margin-top: 15.25px;
+    margin-right: 15px;
+}
+.headButton:hover {
+    background-color: #66fcf1;
+    color: #0b0c10;
+    border: 1px solid #0b0c10;
+}
+#logoDiv {
+    width: 382px;
+    height: 84px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 8px;
+}
