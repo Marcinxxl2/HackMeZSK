@@ -97,3 +97,8 @@ body, html {
 #rightSide table tr:nth-child(even) {
     background-color: #1f2833;
 }
+#rightSide table caption {
+    color: #66fcf1;
+    padding: 4px;
+    font-size: 19px;
+}
