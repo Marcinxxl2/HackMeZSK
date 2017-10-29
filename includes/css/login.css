@@ -1,3 +1,40 @@
-#formForm {
+form {
     color: #c5c6c7;
+    font-size: 20px;
+    display: block;
+    margin-left: 40px;
+    margin-top: 40px;
+}
+form div {
+    margin-top: 20px;
+}
+form div input {
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 4px;
+    width: 250px;
+}
+form div:first-child input {
+    margin-left: 15px;
+}
+form button {
+    margin-top: 20px;
+    background-color: #151b22;
+    border: 1px solid #66fcf1;
+    color: #c5c6c7;
+    padding: 10px 25px 10px 25px;
+    font-size: 20px;
+}
+form button:hover {
+    background-color: #66fcf1;
+    color: #0b0c10;
+    cursor: pointer;
+}
+.warningInput {
+    border: 2px solid #dc3545;
+    border-radius: 4px;
+}
+#alert {
+    color: #dc3545;
+    padding-left: 15px;
 }

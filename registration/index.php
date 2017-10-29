@@ -11,6 +11,7 @@
             <input type="text" name="login">
             Podaj hasło:
             <input type="password" name="pass">
+            <button>Zaloguj</button>
         </form>
     </div>
 </div>
