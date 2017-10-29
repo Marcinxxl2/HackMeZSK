@@ -20,12 +20,8 @@ form div:first-child input {
 form button {
     margin-top: 20px;
     background-color: #151b22;
-    border: 1px solid #66fcf1;
-    color: #c5c6c7;
-    padding: 10px 25px 10px 25px;
+    padding: 10px 45px 10px 45px;
     font-size: 20px;
-    transition-duration: 0.15s;
-    -webkit-transition-duration: 0.15s;
 }
 form button:hover {
     background-color: #66fcf1;
@@ -42,4 +38,11 @@ form button:hover {
 }
 form button:focus {
     outline: 0px !important;
+}
+#passRemind {
+    display: block;
+    margin-left: 40px;
+    margin-top: 8px;
+    font-size: 14px;
+    width: 140px;
 }

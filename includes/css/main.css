@@ -71,24 +71,15 @@ body, html {
 #leftSide div {
     padding-top: 10px;
     padding-bottom: 10px;
-    border: 1px solid #66fcf1;
-    color: #c5c6c7;
     font-size: 19px;
-    text-align: center;
     width: 180px;
     margin-left: 20px;
     margin-top: 15px;
-    transition-duration: 0.15s;
-    -webkit-transition-duration: 0.15s;
 }
 #leftSide p {
     font-size: 24px;
     text-align: center;
     color: #66fcf1;
-}
-.headButton:hover, #leftSide div:hover {
-    background-color: #66fcf1;
-    color: #0b0c10;
 }
 #rightSide table {
     color: #c5c6c7;
@@ -114,6 +105,24 @@ body, html {
     color: #66fcf1;
     padding: 4px;
     font-size: 19px;
+}
+.niceButton {
+    transition-duration: 0.15s;
+    -webkit-transition-duration: 0.15s;
+    border: 1px solid #66fcf1;
+    color: #c5c6c7;
+    text-align: center;
+}
+.niceButton:hover {
+    background-color: #66fcf1;
+    color: #0b0c10;
+}
+.textLink {
+    text-decoration: none;
+    color: #c5c6c7;
+}
+.textLink:hover {
+    color: #66fcf1;
 }
 
 
