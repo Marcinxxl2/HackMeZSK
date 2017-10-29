@@ -8,8 +8,8 @@
 
 <div id="content">
     <form action="login.php" method="POST" id="loginForm">
-        <div><label>Podaj login: <input type="text" name="login"></label></div>
-        <div><label>Podaj hasło: <input type="password" name="pass"></label></div>
+        <div><label>Podaj login: <input type="text" name="login" maxlength="45"></label></div>
+        <div><label>Podaj hasło: <input type="password" name="pass" maxlength="45"></label></div>
         <button type="button" class="niceButton">Zaloguj</button>
         <span id="alert"></span>
     </form>
