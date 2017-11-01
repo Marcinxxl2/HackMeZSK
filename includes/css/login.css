@@ -24,8 +24,6 @@ form button {
     font-size: 20px;
 }
 form button:hover {
-    background-color: #66fcf1;
-    color: #0b0c10;
     cursor: pointer;
 }
 .warningInput {
@@ -42,7 +40,7 @@ form button:focus {
 #passRemind {
     display: block;
     margin-left: 40px;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 14px;
     width: 140px;
 }
