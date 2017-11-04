@@ -23,11 +23,17 @@
             <div>
                 <div class="regisLegend">Podaj hasło: *</div>
                 <input type="password" name="password1" maxlength="45">
+                <div id="passwordMeter">
+                    <div id="meterLength" class="goodText">sa</div>
+                    <div id="meterLetter">as</div>
+                    <div id="meterDigit">das</div>
+                    <div id="meterSpecial">asdas</div>
+                </div>
                 <div id="alertPassword1" class="regisAlert"></div>
             </div>
             <div id="regisRegulations">
                 <label for="regulationsCheckbox">Zaakceptuj</label> <a href="../includes/docs/regulamin_strony" target="_blank" id="regulationsLink">regulamin</a>: <input type="checkbox" name="regulations" id="regulationsCheckbox">
-                <div id="alertRegulations" class="regisAlert"></div>
+                <div id="alertPassword1" class="regisAlert"></div>
             </div>
             <div class="g-recaptcha" data-sitekey="6LchbRQUAAAAAKNfB7TwFroRDo4JZa3plUU_pmZG"></div>
             <button type="button" class="niceButton">Zarejestruj</button>
@@ -36,7 +42,7 @@
         <div class="regisSide">
             <div>
                 <div class="regisLegend">Podaj E-mail: *</div>
-                <input type="text" name="email" maxlength="45">
+                <input type="text" name="email" maxlpth="45">
                 <div id="alertEmail" class="regisAlert"></div>
             </div>
             <div>
@@ -47,7 +53,7 @@
             <div>
                 <div class="regisLegend">Powtórz hasło: *</div>
                 <input type="password" name="password2" maxlength="45">
-                <div id="alertPassword2" class="regisAlert"></div>
+                <div id="alertPassword1" class="regisAlert"></div>
             </div>
         </div>
     </form>

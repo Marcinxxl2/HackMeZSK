@@ -21,11 +21,12 @@
     font-size: 17px;
 }
 .regisAlert {
-    padding-top: 2px;
-    font-size: 17px;
+    padding-top: 5px;
+    font-size: 16px;
+    color: #dc3545;
 }
 #regisRegulations {
-    height: 55px;
+    height: 47px;
 }
 #regulationsCheckbox {
     transform: scale(1.25);
@@ -52,4 +53,39 @@
     margin-left: 15px;
     font-size: 13px;
     margin-top: 15px;
+}
+.warningInput {
+    border: 2px solid #dc3545;
+    border-radius: 4px;
+}
+.goodInput {
+    border: 2px solid #5cb85c;
+    border-radius: 4px;
+}
+#passwordMeter {
+    position: absolute;
+    width: 170px;
+    height: 100px;
+    padding: 0px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    margin-top: -65px;
+    margin-left: -193px;
+}
+#passwordMeter::after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 15px 0 15px 15px;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -15px;
+    top: 35px;
+}
+#passwordMeter div {
+    height: 25px;
+    line-height: 25px;
+    padding-left: 10px; 
 }

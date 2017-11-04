@@ -126,6 +126,18 @@ body, html {
 .textLink:hover {
     color: #66fcf1;
 }
+.goodText {
+    color: #5cb85c;
+}
+.goodText::after {
+    content: ' \2714';
+}
+.badText {
+    color: #dc3545;
+}
+.badText::after {
+    content: ' \2718';
+}
 
 
 
