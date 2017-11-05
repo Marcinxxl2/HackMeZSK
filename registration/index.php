@@ -12,28 +12,28 @@
         <div class="regisSide">
             <div>
                 <div class="regisLegend">Podaj login: *</div>
-                <input type="text" name="login" maxlength="45">
+                <input type="text" name="login" maxlength="45" tabindex='1'>
                 <div id="alertLogin" class="regisAlert"></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj imię:</div>
-                <input type="text" name="firstname" maxlength="45">
+                <input type="text" name="firstname" maxlength="45" tabindex='3'>
                 <div id="alertFirstname" class="regisAlert"></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj hasło: *</div>
-                <input type="password" name="password1" maxlength="45">
-                <div id="passwordMeter">
-                    <div id="meterLength" class="goodText">sa</div>
-                    <div id="meterLetter">as</div>
-                    <div id="meterDigit">das</div>
-                    <div id="meterSpecial">asdas</div>
+                <input type="password" name="password1" maxlength="45" tabindex='5'>
+                <div id="passwordMeter" hidden>
+                    <div id="meterLength" class='badText'>Minimum 8 znaków</div>
+                    <div id="meterLetter" class='badText'>Litera</div>
+                    <div id="meterDigit" class='badText'>Cyfra</div>
+                    <div id="meterSpecial" class='badText'>Znak specjalny</div>
                 </div>
                 <div id="alertPassword1" class="regisAlert"></div>
             </div>
             <div id="regisRegulations">
                 <label for="regulationsCheckbox">Zaakceptuj</label> <a href="../includes/docs/regulamin_strony" target="_blank" id="regulationsLink">regulamin</a>: <input type="checkbox" name="regulations" id="regulationsCheckbox">
-                <div id="alertPassword1" class="regisAlert"></div>
+                <div id="alertRegulations"></div>
             </div>
             <div class="g-recaptcha" data-sitekey="6LchbRQUAAAAAKNfB7TwFroRDo4JZa3plUU_pmZG"></div>
             <button type="button" class="niceButton">Zarejestruj</button>
@@ -42,18 +42,18 @@
         <div class="regisSide">
             <div>
                 <div class="regisLegend">Podaj E-mail: *</div>
-                <input type="text" name="email" maxlpth="45">
+                <input type="text" name="email" maxlpth="45" tabindex='2'>
                 <div id="alertEmail" class="regisAlert"></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj nazwisko:</div>
-                <input type="text" name="lastname" maxlength="45">
+                <input type="text" name="lastname" maxlength="45" tabindex='4'>
                 <div id="alertLastname" class="regisAlert"></div>
             </div>
             <div>
                 <div class="regisLegend">Powtórz hasło: *</div>
-                <input type="password" name="password2" maxlength="45">
-                <div id="alertPassword1" class="regisAlert"></div>
+                <input type="password" name="password2" maxlength="45" tabindex='6' disabled>
+                <div id="alertPassword2" class="regisAlert"></div>
             </div>
         </div>
     </form>
