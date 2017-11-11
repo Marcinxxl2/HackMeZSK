@@ -8,7 +8,7 @@
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterHeadA.php'; ?>
 
 <div id="content">
-    <form action="regis.php" method="POST" id="regisForm">
+    <form action="registration.php" method="POST" id="regisForm">
         <div class="regisSide">
             <div>
                 <div class="regisLegend">Podaj login: *</div>
@@ -36,6 +36,7 @@
                 <div id="alertRegulations"></div>
             </div>
             <div class="g-recaptcha" data-sitekey="6LchbRQUAAAAAKNfB7TwFroRDo4JZa3plUU_pmZG"></div>
+            <div id="alertCaptcha"></div>
             <button type="button" class="niceButton">Zarejestruj</button>
             <p>* Pola obowiązkowe</p>
         </div>

@@ -44,7 +44,7 @@
 }
 #regisForm button {
     margin-left: 15px;
-    margin-top: 15px;
+    margin-top: 25px;
     background-color: #151b22;
     padding: 13px 50px 13px 50px;
     font-size: 22px;
@@ -93,4 +93,10 @@
     line-height: 25px;
     padding-left: 10px; 
     font-size: 15px;
+}
+#alertCaptcha {
+    font-size: 16px;
+    color: #dc3545;
+    height: 22px;
+    margin-top: -2px;
 }

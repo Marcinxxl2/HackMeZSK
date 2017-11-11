@@ -1,12 +1,13 @@
 $(document).ready(function () {
 
+    //Obiekt który będzie posiadał dane o porawności walidacji poszczególnych elementów
     var validate = {
         login: false,
         email: false,
         firstname: false,
         lastname: false,
         pass1: false,
-        pass2: false
+        pass2: false,
     };
 
     var f = document.forms['regisForm'];
@@ -33,13 +34,14 @@ $(document).ready(function () {
     var aPass1 = $('#alertPassword1');
     var aPass2 = $('#alertPassword2');
     var aRegu = $('#alertRegulations');
+    var aCaptcha = $('#alertCaptcha');
 
     var aMeterLength = $('#meterLength');
     var aMeterLetter = $('#meterLetter');
     var aMeterDigit = $('#meterDigit');
     var aMeterSpecial = $('#meterSpecial');
-
-    function toggleClass (element, classToRemoveName, classToAddName) {
+    
+    function switchClass (element, classToRemoveName, classToAddName) {
         $(element).removeClass(classToRemoveName);
         $(element).addClass(classToAddName);
     }
@@ -48,14 +50,14 @@ $(document).ready(function () {
         $(inputElement).on('blur', function () {
             if (!regex.test($(inputElement).val())) {
                 $(alertElement).text(alertText);
-                toggleClass(inputElement, 'goodInput', 'warningInput');
+                switchClass(inputElement, 'goodInput', 'warningInput');
                 validate[objectValidateElementName] = false;           
             }
         });
         $(inputElement).on('input', function () {
             if (regex.test($(inputElement).val())) {
                 $(alertElement).text('');
-                toggleClass(inputElement, 'warningInput', 'goodInput');
+                switchClass(inputElement, 'warningInput', 'goodInput');
                 validate[objectValidateElementName] = true; 
             }
         });
@@ -79,7 +81,7 @@ $(document).ready(function () {
 
         if (!regPass.test($(elPass1).val())) {
             $(aPass1).text('Nieprawidłowe hasło');
-            toggleClass(elPass1, 'goodInput', 'warningInput');
+            switchClass(elPass1, 'goodInput', 'warningInput');
             validate['pass1'] = false;   
             $(elPass2).attr('disabled', true);        
         }
@@ -87,32 +89,32 @@ $(document).ready(function () {
 
     $(elPass1).on('input', function () {
         if ($(elPass1).val().length < 8) {
-            toggleClass(aMeterLength, 'goodText', 'badText');
+            switchClass(aMeterLength, 'goodText', 'badText');
         } else {
-            toggleClass(aMeterLength, 'badText', 'goodText');
+            switchClass(aMeterLength, 'badText', 'goodText');
         }
 
         if (!regPassLetter.test($(elPass1).val())) {
-            toggleClass(aMeterLetter, 'goodText', 'badText');
+            switchClass(aMeterLetter, 'goodText', 'badText');
         } else {
-            toggleClass(aMeterLetter, 'badText', 'goodText');
+            switchClass(aMeterLetter, 'badText', 'goodText');
         }
 
         if (!regPassDigit.test($(elPass1).val())) {
-            toggleClass(aMeterDigit, 'goodText', 'badText');
+            switchClass(aMeterDigit, 'goodText', 'badText');
         } else {
-            toggleClass(aMeterDigit, 'badText', 'goodText');
+            switchClass(aMeterDigit, 'badText', 'goodText');
         }
 
         if (!regPassSpecial.test($(elPass1).val())) {
-            toggleClass(aMeterSpecial, 'goodText', 'badText');
+            switchClass(aMeterSpecial, 'goodText', 'badText');
         } else {
-            toggleClass(aMeterSpecial, 'badText', 'goodText');
+            switchClass(aMeterSpecial, 'badText', 'goodText');
         }
 
         if (regPass.test($(elPass1).val())) {
             $(aPass1).text('');
-            toggleClass(elPass1, 'warningInput', 'goodInput');
+            switchClass(elPass1, 'warningInput', 'goodInput');
             validate['pass1'] = true; 
             $(elPass2).removeAttr('disabled');
         }
@@ -121,14 +123,14 @@ $(document).ready(function () {
     $(elPass2).on('blur', function () {
         if ($(elPass2).val() != $(elPass1).val()) {
             $(aPass2).text('Hasła się nie zgadzają');
-            toggleClass(elPass2, 'goodInput', 'warningInput');
+            switchClass(elPass2, 'goodInput', 'warningInput');
             validate['pass2'] = false;           
         }
     });
     $(elPass2).on('input', function () {
         if ($(elPass2).val() == $(elPass1).val()) {
             $(aPass2).text('');
-            toggleClass(elPass2, 'warningInput', 'goodInput');
+            switchClass(elPass2, 'warningInput', 'goodInput');
             validate['pass2'] = true; 
         }
     });
@@ -139,6 +141,8 @@ $(document).ready(function () {
         }
     });
 
+
+    
     function allOk () {
         for (var i in validate) {
             if (!validate[i]) {
@@ -148,13 +152,25 @@ $(document).ready(function () {
         return true;
     }
 
+
+
     $(elSubmitButton).on('click', function () {
         if (!$(elRegu).is(':checked')) {
             $(aRegu).text('Akceptacja jest wymagana');
-        } else if (allOk()) {
+        }
+        //grecaptcha.getResponse() zwraca jakąś wartość jeśli captcha została zweryfikowana
+        if (grecaptcha.getResponse().length == 0) {
+            $(aCaptcha).text('Zweryfikuj Captche');
+        }
+        if (allOk() && !$(elRegu).is(':checked') && grecaptcha.getResponse().length == 0) {
             f.submit();
+        } else {
+            $('#regisForm :input').each(function () {
+                $(this).trigger('blur');
+            });
         }
     });
+
 });
 
 
