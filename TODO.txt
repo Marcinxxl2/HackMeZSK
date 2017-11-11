@@ -1,0 +1,1 @@
+- Zrobienie skryptu w mysql który będzie usuwaj linki aktywacyjne starsze niż 7 dni, a także usuwaj powiązane z nimi konta użytkowników
