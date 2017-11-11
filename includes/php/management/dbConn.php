@@ -3,68 +3,32 @@
 
     class DatabaseConnection {
 
-        protected $connType;
-        protected $serverAddress;
-        protected $dbName;
-        protected $userName;
-        protected $userPass;
+        private $serverAddress;
+        private $dbName;
+        private $userName;
+        private $userPass;
         protected $mysqliConn;
 
-        //******************************************POŁĄCZENIA******************************************
+        //******************************************POŁĄCZENIE******************************************
 
-        //Konstruktor, przypisuje odpowienie wartości do zmiennych i tworzy połączenie z bazą danych przy pomocy użytkownika który ma uprawnienia WRITE (INSERT, UPDATE, DELETE), lub przy pomocy takiego co ma uprawnienia READ (SELECT). Wymyśliłem coś takiego dla większego bezpieczeństwa przed ewentualnymi atakiami SQL Injection
+        //Konstruktor, przypisuje odpowienie wartości do zmiennych i tworzy połączenie z bazą danych
         //Nie zwraca żadnej wartości
-        public function __construct ($connType) { 
+        public function __construct () { 
 
             $this->serverAddress = $GLOBALS['serverAddress'];
             $this->dbName = $GLOBALS['site_dbName']; 
+            $this->userName = $GLOBALS['site_operationsUserName']; 
+            $this->userPass = $GLOBALS['site_operationsUserPass']; 
 
-            if ($connType == 'write') {
-                $this->userName = $GLOBALS['site_writeUserName'];
-                $this->userPass = $GLOBALS['site_writeUserPassword'];
-                $this->connType = 'write';
-            } else if ($connType == 'read') {
-                $this->userName = $GLOBALS['site_readUserName'];
-                $this->userPass = $GLOBALS['site_readUserPassword'];
-                $this->connType = 'read';
-            } else {
-                throw new Exception('Niepoprawny typ połączenia');
+            if (!$this->mysqliConn = new mysqli($this->serverAddress, $this->userName, $this->userPass, $this->dbName)) {
+                throw new Exception('Błąd połączenia z bazą danych');
             }
-
-            $this->mysqliConn = new mysqli($this->serverAddress, $this->userName, $this->userPass, $this->dbName);
-        }
-
-        //Funkcja ta zmienia typ połączenia na inny
-        //Nie zwraca żadnej wartości
-        public function switchConnectionType ($connType) { 
-
-            $this->mysqliConn->close();
-
-            if ($connType == 'write') {
-                $this->userName = $GLOBALS['site_writeUserName'];
-                $this->userPass = $GLOBALS['site_writeUserPassword'];
-                $this->connType = 'write';
-            } else if ($connType == 'read') {
-                $this->userName = $GLOBALS['site_readUserName'];
-                $this->userPass = $GLOBALS['site_readUserPassword'];
-                $this->connType = 'read';
-            } else {
-                throw new Exception('Niepoprawny typ połączenia');
-            }
-
-            $this->mysqliConn = new mysqli($this->serverAddress, $this->userName, $this->userPass, $this->dbName);
-        }
-
-        //Funkcja która po prostu zwraca aktualny typ połączenia
-        public function currentConnectionType () {
-            return $this->connType;
         }
                 
         //******************************************ZAPYTANIA******************************************
 
         //Funkcja sprawdza czy istnieje juz podany login w bazie
         //Zwraca true jeśli istnieje, false jeśli nie istnieje
-        //Typ READ
         public function whetherUsernameAlreadyExists ($username) {
             if ($stmt = $this->mysqliConn->prepare('SELECT username FROM users WHERE username = ?')) {
 
@@ -87,7 +51,6 @@
 
         //Funkcja dodaje w bezpieczny sposób użytkownika do bazy
         //Nie zwraca żadnej wartości
-        //Typ WRITE
         public function addUserToDatabase ($username, $password_hash, $email, $firstname, $lastname) { 
 
             if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, default)')) {
@@ -116,6 +79,5 @@
             $this->mysqliConn->close();
         }
     }
-
 
 ?>
