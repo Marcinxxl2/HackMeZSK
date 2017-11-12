@@ -48,7 +48,6 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
-            
         }
 
         //Funkcja sprawdza czy istnieje juz podany Email w bazie
@@ -70,7 +69,6 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
-            
         }
 
         //Funkcja dodaje w bezpieczny sposób użytkownika do bazy
@@ -78,10 +76,12 @@
         //Link aktywacyjny jest tworzony z połączonego stringa aktalnego czasu, podanego emailu i nazwy uzytkownika i jest zamieniany na hash md5
         //Link aktywacyjny zostaje wysłany na podany email 
         //Nie zwraca żadnej wartości
-        public function addUserToDatabase ($username, $password_hash, $email, $firstname, $lastname) { 
+        public function addUserToDatabase ($username, $password, $email, $firstname, $lastname) { 
+
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, CURRENT_DATE(), default)')) {
-                $stmt->bind_param('sssss', $username, $password_hash, $email, $firstname, $lastname);
+                $stmt->bind_param('sssss', $username, $passwordHash, $email, $firstname, $lastname);
                 $stmt->execute();
                 $stmt->close();
 
@@ -116,20 +116,68 @@
                     throw new Exception('Wystąpił błąd przy dodawaniu wpisu do aktywacji konta');
                 }
 
-
-
             } else {
                 throw new Exception('Wystąpił błąd przy dodawaniu użytkownika do bazy');
             }
-            
         }
 
-        public function areLoginCredentialsValid () {
-            //TODO
+        //Funkcja sprawdza czy login i hasło się zgadzają
+        //Zwraca user_id jeśli się zgadzają, false jeśli się nie zgadzają
+        public function areLoginCredentialsValid ($username, $password) {
+
+            if ( $stmt = $this->mysqliConn->prepare('SELECT user_id, password_hash FROM users WHERE username = ?')) {
+                $stmt->bind_param('s', $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows > 0) {
+
+                    $row = $result->fetch_assoc();
+                    $passwordHash = $row['password_hash'];
+                    $userId = $row['user_id'];
+
+                    if (password_verify($password, $passwordHash)) {
+                        return $userId;
+                    } else {
+                        return false;
+                    }
+                }
+               
+            } else {
+                throw new Exception('Błąd zapytania do bazy');
+            } 
         }
 
-        public function customQuery () {
-            //TODO
+        //Funkcja pobiera dane użytkownika
+        //Zwraca tablice z danymi jeśli znaleziono użytkownika, false jeśli nie znaleziono 
+        public function getUserData ($userId) {
+            if ($stmt = $this->mysqliConn->prepare('SELECT user_id, username, email, firstname, lastname, creation_date, user_status FROM users WHERE user_id = ?')) {
+                $stmt->bind_param('i', $userId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows > 0) { 
+                    return $result->fetch_assoc();
+                } else {
+                    return false;
+                }
+
+            } else {
+                throw new Exception('Błąd zapytania do bazy');
+            }
+
+        }
+
+        //Funkcja wykonuje podane zapytanie SQL
+        //Zwraca obiekt wynikowy jeśli się udało, false jeśli się nie udało
+        public function customQuery ($sql) {
+            if ($result = $this->mysqliConn->query($sql)) {
+                return $result;
+            } else {
+                return false;
+            }
         }
 
         public function closeConnection () {
