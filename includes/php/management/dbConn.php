@@ -167,17 +167,12 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
-
         }
 
         //Funkcja wykonuje podane zapytanie SQL
-        //Zwraca obiekt wynikowy jeśli się udało, false jeśli się nie udało
+        //Zwraca obiekt wynikowy
         public function customQuery ($sql) {
-            if ($result = $this->mysqliConn->query($sql)) {
-                return $result;
-            } else {
-                return false;
-            }
+            return $this->mysqliConn->query($sql);
         }
 
         public function closeConnection () {

@@ -1,1 +1,4 @@
-- Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dniS
+- Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dni
+- Stworzyć widok pokazujący rozwiązania danego użytkownika, aby potem pobrać je do tablicy w php
+- Stworzyć widok pokazujący ile punktów ma dany użytkownik
+- Stworzyć widok pokazujący ile punktów ma dany użytkownik w formie rankingu (posegregowane, tylko aktywne konta, może nawet LIMIT 10)
