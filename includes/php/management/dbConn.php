@@ -111,7 +111,7 @@
                         force_sender=hackmezsk@gmail.com
                     */
 
-                    mail($email, 'Aktywacja konta', 'Link aktywacyjny: '.$activationLink.' <br> Jeśli nie aktywujesz swojego konta w przeciągu 7 dni, zostanie one usunięte i będziesz musiał zarejstrować je na nowo.', 'Content-Type: text/html; charset=UTF-8');
+                    mail($email, 'Aktywacja konta', 'Link aktywacyjny: '.$activationLink.' <br> Jeśli nie aktywujesz swojego konta w przeciągu 30 dni, zostanie one usunięte i będziesz musiał zarejstrować je na nowo.', 'Content-Type: text/html; charset=UTF-8');
 
                 } else {
                     throw new Exception('Wystąpił błąd przy dodawaniu wpisu do aktywacji konta');
