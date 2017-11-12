@@ -1,1 +1,1 @@
-- Zrobienie skryptu w mysql który będzie usuwaj linki aktywacyjne starsze niż 30 dni, a także usuwaj powiązane z nimi konta użytkowników
+- Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dniS

@@ -80,21 +80,20 @@
         //Nie zwraca żadnej wartości
         public function addUserToDatabase ($username, $password_hash, $email, $firstname, $lastname) { 
 
-            if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, default)')) {
+            if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, CURRENT_DATE(), default)')) {
                 $stmt->bind_param('sssss', $username, $password_hash, $email, $firstname, $lastname);
                 $stmt->execute();
                 $stmt->close();
 
                 $userId = $this->mysqliConn->insert_id; //mysqliConn->insert_id zwraca id ostatnio dodanego wiersza
                 $activationCode = md5($username.$email.time());
-                $date = date('Y-m-d');
 
-                if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, ?, 0)')) {
-                    $stmt->bind_param('sss', $userId, $activationCode, $date);
+                if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_DATE(), 0)')) {
+                    $stmt->bind_param('ss', $userId, $activationCode);
                     $stmt->execute();
                     $stmt->close();
 
-                    $activationLink = '127.0.0.1/HackMeZSK/activation/activation.php?uid='.$userId.'&a='.$activationCode;
+                    $activationLink = '127.0.0.1/HackMeZSK/activation/activation.php?uid='.$userId.'&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
 
                     /* 
                     Aby wysyłanie maili zadziałało trzeba ustawić:
