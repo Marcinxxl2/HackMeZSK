@@ -168,6 +168,30 @@
                 throw new Exception('Błąd zapytania do bazy');
             }
         }
+        //Funkcja pobiera rozwiązania zadań użytkownika
+        //Zwraca tablice z jeśli znaleziono rozwiązania, false jeśli nie znaleziono
+        //users_solutions jest widokiem
+        public function getUserSolutions ($userId) {
+            if ($stmt = $this->mysqliConn->prepare('SELECT level_name FROM users_solutions WHERE user_id = ?')) {
+                $stmt->bind_param('i', $userId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows > 0) { 
+                    $varForReturn = array();
+                    while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                        array_push($varForReturn, $row[0]);
+                    }
+                    return $varForReturn;
+                } else {
+                    return false;
+                }
+
+            } else {
+                throw new Exception('Błąd zapytania do bazy');
+            }
+        }
 
         //Funkcja wykonuje podane zapytanie SQL
         //Zwraca obiekt wynikowy

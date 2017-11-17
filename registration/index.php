@@ -32,10 +32,10 @@
                 <div id="alertPassword1" class="regisAlert"></div>
             </div>
             <div id="regisRegulations">
-                <label for="regulationsCheckbox">Zaakceptuj</label> <a href="../includes/docs/regulamin_strony" target="_blank" id="regulationsLink">regulamin</a>: <input type="checkbox" name="regulations" id="regulationsCheckbox">
+                <label for="regulationsCheckbox">Zaakceptuj</label> <a href="../includes/docs/regulamin_strony" target="_blank" id="regulationsLink">regulamin</a>: <input type="checkbox" name="regulations" value="accepted" id="regulationsCheckbox" autocomplete="off">
                 <div id="alertRegulations"></div>
             </div>
-            <div class="g-recaptcha" data-sitekey="6LchbRQUAAAAAKNfB7TwFroRDo4JZa3plUU_pmZG"></div>
+            <div class="g-recaptcha" data-sitekey="6LdkzzYUAAAAAIPRNJZ7BmEmjQ7Ku0Ny4_9pTxgu"></div>
             <div id="alertCaptcha"></div>
             <button type="button" class="niceButton">Zarejestruj</button>
             <p>* Pola obowiązkowe</p>

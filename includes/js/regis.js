@@ -118,6 +118,11 @@ $(document).ready(function () {
             validate['pass1'] = true; 
             $(elPass2).removeAttr('disabled');
         }
+
+        if ($(elPass2).val() != '') {
+            $(elPass2).val('');
+            $(elPass2).trigger('blur');
+        }
     });
 
     $(elPass2).on('blur', function () {
@@ -162,7 +167,7 @@ $(document).ready(function () {
         if (grecaptcha.getResponse().length == 0) {
             $(aCaptcha).text('Zweryfikuj Captche');
         }
-        if (allOk() && !$(elRegu).is(':checked') && grecaptcha.getResponse().length == 0) {
+        if (allOk() && $(elRegu).is(':checked') && grecaptcha.getResponse().length != 0) {
             f.submit();
         } else {
             $('#regisForm :input').each(function () {
@@ -170,6 +175,14 @@ $(document).ready(function () {
             });
         }
     });
+
+    //Aby się nie psuło gdy przeglądarka zapamięta wartości
+    $('#regisForm :input').each(function () {
+        if ($(this).val() != '') {
+            $(this).trigger('input');
+        }
+    });
+ 
 
 });
 
