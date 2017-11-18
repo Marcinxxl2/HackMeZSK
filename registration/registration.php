@@ -1,7 +1,11 @@
 <?php
-    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        header('Location: index.php');
+        exit();
+    }
     
-    require '../includes/php/management/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+    session_start();
     
     $login = $_POST['login'];
     $email = $_POST['email'];
@@ -28,7 +32,33 @@
         ($regulations == 'accepted') && 
         (captchaVerify() == true)
     ) {
-        echo 'Działa';
+        require '../includes/php/management/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+        
+        $conn = new DatabaseConnection();
+
+        $somethingTaken = false;
+
+        if ($conn->whetherUsernameAlreadyExists($login)) {
+            $_SESSION['usernameAlreadyExists'] = 'Login jest już zajęty';
+            $somethingTaken = true;
+        }
+
+        if ($conn->whetherEmailAlreadyExists($email)) {
+            $_SESSION['emailAlreadyExists'] = 'E-mail jest już zajęty';
+            $somethingTaken = true;
+        }
+
+        if ($somethingTaken) {
+            header('Location: index.php');
+            exit();
+        }
+
+        $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
+            $_SESSION['userAdded'] = 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować';
+            header('Location: ../index.php');
+
+    } else {
+        $_SESSION['regAlert'] = 'Dane wysłane na serwer nie przeszyły weryfikacji';
+        header('Location: index.php');
     }
-    
 ?>

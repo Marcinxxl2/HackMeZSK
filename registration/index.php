@@ -1,3 +1,5 @@
+<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/management/usefulFunctions.php'; ?>
+
 <?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/beforeHeadA.php'; ?>
 
     <title>Rejestracja</title>
@@ -13,7 +15,7 @@
             <div>
                 <div class="regisLegend">Podaj login: *</div>
                 <input type="text" name="login" maxlength="45" tabindex='1'>
-                <div id="alertLogin" class="regisAlert"></div>
+                <div id="alertLogin" class="regisAlert"><?php echoSessionAlert('usernameAlreadyExists'); ?></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj imię:</div>
@@ -44,7 +46,7 @@
             <div>
                 <div class="regisLegend">Podaj E-mail: *</div>
                 <input type="text" name="email" maxlpth="45" tabindex='2'>
-                <div id="alertEmail" class="regisAlert"></div>
+                <div id="alertEmail" class="regisAlert"><?php echoSessionAlert('emailAlreadyExists'); ?></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj nazwisko:</div>

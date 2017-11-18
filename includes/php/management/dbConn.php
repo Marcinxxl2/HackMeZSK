@@ -75,7 +75,7 @@
         //Zostaje dodany wiersz do tabeli users i do tabeli confirmations w celu późniejszej aktywacji konta
         //Link aktywacyjny jest tworzony z połączonego stringa aktalnego czasu, podanego emailu i nazwy uzytkownika i jest zamieniany na hash md5
         //Link aktywacyjny zostaje wysłany na podany email 
-        //Nie zwraca żadnej wartości
+        //Nic nie zwraca
         public function addUserToDatabase ($username, $password, $email, $firstname, $lastname) { 
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -124,7 +124,7 @@
         //Funkcja sprawdza czy login i hasło się zgadzają
         //Zwraca user_id jeśli się zgadzają, false jeśli się nie zgadzają
         public function areLoginCredentialsValid ($username, $password) {
-
+            
             if ( $stmt = $this->mysqliConn->prepare('SELECT user_id, password_hash FROM users WHERE username = ?')) {
                 $stmt->bind_param('s', $username);
                 $stmt->execute();
@@ -143,7 +143,7 @@
                         return false;
                     }
                 }
-               
+                       
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             } 
@@ -168,6 +168,7 @@
                 throw new Exception('Błąd zapytania do bazy');
             }
         }
+
         //Funkcja pobiera rozwiązania zadań użytkownika
         //Zwraca tablice z jeśli znaleziono rozwiązania, false jeśli nie znaleziono
         //users_solutions jest widokiem
@@ -192,6 +193,8 @@
                 throw new Exception('Błąd zapytania do bazy');
             }
         }
+
+        
 
         //Funkcja wykonuje podane zapytanie SQL
         //Zwraca obiekt wynikowy
