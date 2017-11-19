@@ -32,6 +32,7 @@
         //Funkcja sprawdza czy istnieje juz podany login w bazie
         //Zwraca true jeśli istnieje, false jeśli nie istnieje
         public function whetherUsernameAlreadyExists ($username) {
+
             if ($stmt = $this->mysqliConn->prepare('SELECT username FROM users WHERE username = ?')) {
 
                 $stmt->bind_param('s', $username);
@@ -48,11 +49,13 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
+
         }
 
         //Funkcja sprawdza czy istnieje juz podany Email w bazie
         //Zwraca true jeśli istnieje, false jeśli nie istnieje
         public function whetherEmailAlreadyExists ($email) {
+
             if ($stmt = $this->mysqliConn->prepare('SELECT email FROM users WHERE email = ?')) {
 
                 $stmt->bind_param('s', $email);
@@ -69,6 +72,7 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
+
         }
 
         //Funkcja dodaje w bezpieczny sposób użytkownika do bazy
@@ -119,9 +123,72 @@
             } else {
                 throw new Exception('Wystąpił błąd przy dodawaniu użytkownika do bazy');
             }
-        }
 
-        public function checkActivationCode ($uid, $a) {
+        }
+        //Funkcja w bezpieczny sposób aktywuje konto użytkownika
+        //Zwraca komunikat o tym co się stało
+        public function activateAccount ($uid, $a) {
+
+            $alert = '';
+
+            //Na początku sprawdzam czy użytkownik nie został już wcześniej aktywowany i czy istnieje
+            if ($stmt = $this->mysqliConn->prepare('SELECT user_status FROM users WHERE user_id = ?')) {
+                $stmt->bind_param('i', $uid);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows == 1) {
+                    $row = $result->fetch_assoc();
+
+                    // O oznacza, że użytkownik nie został jeszcze zaaktywowany
+                    if ($row['user_status'] == 0) {
+
+                        //Jeśli nie został aktywowany, to prawdzam czy istnieje wpis aktywacyjny w tabeli confirmations
+                        if ($stmt = $this->mysqliConn->prepare('SELECT confirmation_id, user_id, con_key FROM confirmations WHERE user_id = ? AND con_type = 0 AND con_key = ?')) {
+                            $stmt->bind_param('is', $uid, $a);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $stmt->close();
+                            
+                            //Jeśli wszystko jest ok, to usuwam wpis aktywacyjny z tabeli confirmations i zmieniam status konta na aktywowany
+                            if ($result->num_rows == 1) {
+                                $row = $result->fetch_assoc();
+
+                                $cid = $row['confirmation_id'];
+                                $uid = $row['user_id'];
+
+                                //Tutaj mogę już to zrobić w taki mniej bezpieczny sposób, bo operuje na danych wyciągnietych z bazy, a nie podanych przez użykownika w linku
+                                if (
+                                    $this->mysqliConn->query("DELETE FROM confirmations WHERE confirmation_id = $cid") &&
+                                    $this->mysqliConn->query("UPDATE users SET user_status = 1 WHERE user_id = $uid")
+                                ) {
+                                    $alert = '<span style="color: #5cb85c">Konto zostało aktywowane, możesz się teraz zalogować</span>';
+                                } else {
+                                    throw new Exception('Wystąpił błąd w czasie aktywacji konta');
+                                }
+
+                            } else {
+                                $alert = '<span style="color: #dc3545">Kod aktywacyjny się nie zgadza</span>';
+                            }
+
+                        } else {
+                            throw new Exception('Wystąpił błąd w czasie aktywacji konta');
+                        }
+
+                    } else {
+                        $alert = '<span style="color: #dc3545">Konto zostało już aktywowane</span>';
+                    }
+
+                } else {
+                    $alert = '<span style="color: #dc3545">Nie znaleziono użytkownika</span>';
+                }
+
+                return $alert;
+
+            } else {
+                throw new Exception('Wystąpił błąd w czasie aktywacji konta');
+            }
 
         }
 
@@ -129,13 +196,13 @@
         //Zwraca user_id jeśli się zgadzają, false jeśli się nie zgadzają
         public function areLoginCredentialsValid ($username, $password) {
             
-            if ( $stmt = $this->mysqliConn->prepare('SELECT user_id, password_hash FROM users WHERE username = ?')) {
+            if ($stmt = $this->mysqliConn->prepare('SELECT user_id, password_hash FROM users WHERE username = ?')) {
                 $stmt->bind_param('s', $username);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $stmt->close();
 
-                if ($result->num_rows > 0) {
+                if ($result->num_rows == 1) {
 
                     $row = $result->fetch_assoc();
                     $passwordHash = $row['password_hash'];
@@ -151,6 +218,7 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             } 
+
         }
 
         //Funkcja pobiera dane użytkownika
@@ -171,6 +239,7 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
+
         }
 
         //Funkcja pobiera rozwiązania zadań użytkownika
@@ -196,6 +265,7 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
+            
         }
 
         

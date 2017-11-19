@@ -8,8 +8,10 @@
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterHeadA.php'; ?>
 
 <div id="content">
-    <?php echoSessionAlert('userAdded') ?>
-    
+    <?php 
+        echoSessionAlert('userAdded');
+        echoSessionAlert('activationAlert');
+    ?>
 </div>
 
 <?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterContent.php'; ?>
