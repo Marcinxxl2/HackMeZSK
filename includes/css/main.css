@@ -106,6 +106,31 @@ body, html {
     padding: 4px;
     font-size: 19px;
 }
+.alertBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    margin-top: 30px;
+    width: 88%;
+    background-color: #1f2833;
+    color: #c5c6c7;
+    border: 1px solid #c5c6c7;
+}
+.alertBoxText {
+    order: 0;
+    padding: 25px;
+    padding-left: 35px;
+    font-size: 19px;
+}
+.closeSymbol {
+    order: 1;
+    margin-right: 23px;
+    font-size: 28px;
+    color: #dc3545;
+    cursor: pointer;
+}
 
 /* Globalne css */
 .niceButton {

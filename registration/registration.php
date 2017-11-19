@@ -54,8 +54,8 @@
         }
 
         $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
-            $_SESSION['userAdded'] = 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować';
-            header('Location: ../index.php');
+        $_SESSION['userAdded'] = '<div class="alertBox"><div class="alertBoxText">Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować</div><div class="closeSymbol">&#10006;</div></div>';
+        header('Location: ../index.php');
 
     } else {
         $_SESSION['regAlert'] = 'Dane wysłane na serwer nie przeszyły weryfikacji';
