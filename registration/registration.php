@@ -49,16 +49,18 @@
         }
 
         if ($somethingTaken) {
+            $conn->closeConnection();
             header('Location: index.php');
             exit();
         }
 
         $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
-        $_SESSION['userAdded'] = '<div class="alertBox"><div class="alertBoxText">Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować</div><div class="closeSymbol">&#10006;</div></div>';
+        $conn->closeConnection();
+        $_SESSION['userAdded'] = '<div class="alertBox"><div class="alertBoxText"><span style="color: #5cb85c">Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować</span></div><div class="closeSymbol">&#10006;</div></div>';
         header('Location: ../index.php');
 
     } else {
-        $_SESSION['regAlert'] = 'Dane wysłane na serwer nie przeszyły weryfikacji';
+        $_SESSION['regAlert'] = '<div class="alertBox"><div class="alertBoxText"><span style="color: #dc3545">Dane wysłane na serwer nie przeszły weryfikacji</span></div><div class="closeSymbol">&#10006;</div></div>';
         header('Location: index.php');
     }
 ?>

@@ -9,6 +9,7 @@
 
 <div id="content">
     <?php echoSessionAlert('userAdded') ?>
+    
 </div>
 
 <?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterContent.php'; ?>

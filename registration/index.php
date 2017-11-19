@@ -5,11 +5,13 @@
     <title>Rejestracja</title>
     <link rel="stylesheet" type="text/css" href="/HackMeZSK/includes/css/regis.css">
     <script src="../includes/js/regis.js"></script>
+    <script src="../includes/js/hideAlertBox.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterHeadA.php'; ?>
 
 <div id="content">
+    <?php echoSessionAlert('regAlert'); ?>
     <form action="registration.php" method="POST" id="regisForm">
         <div class="regisSide">
             <div>
