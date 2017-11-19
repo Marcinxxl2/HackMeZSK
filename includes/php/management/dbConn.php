@@ -121,6 +121,10 @@
             }
         }
 
+        public function checkActivationCode ($uid, $a) {
+
+        }
+
         //Funkcja sprawdza czy login i hasło się zgadzają
         //Zwraca user_id jeśli się zgadzają, false jeśli się nie zgadzają
         public function areLoginCredentialsValid ($username, $password) {

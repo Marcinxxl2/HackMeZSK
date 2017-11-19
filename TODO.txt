@@ -1,3 +1,8 @@
+PHP:
+- Zrobić system aktywacyjny
+- Zrobić system logowania
+
+Mysql:
 - Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dni
 - Stworzyć widok pokazujący rozwiązania danego użytkownika, aby potem pobrać je do tablicy w php
 - Stworzyć widok pokazujący ile punktów ma dany użytkownik
