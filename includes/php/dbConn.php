@@ -97,7 +97,7 @@
                     $stmt->execute();
                     $stmt->close();
 
-                    $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?uid='.$userId.'&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
+                    $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
 
                     /* 
                     Aby wysyłanie maili zadziałało trzeba ustawić:
@@ -125,67 +125,34 @@
             }
 
         }
-        //Funkcja w bezpieczny sposób aktywuje konto użytkownika
-        //Zwraca komunikat o tym co się stało
-        public function activateAccount ($uid, $a) {
 
-            $alert = '';
+        //Fukcja aktywuje konto
+        //Zwraca true jeśli aktywacja się powiodła, false jeśli się nie powiodła
+        public function activateAccount ($a) {
 
-            //Na początku sprawdzam czy użytkownik nie został już wcześniej aktywowany i czy istnieje
-            if ($stmt = $this->mysqliConn->prepare('SELECT user_status FROM users WHERE user_id = ?')) {
-                $stmt->bind_param('i', $uid);
+            if ($stmt = $this->mysqliConn->prepare('SELECT confirmation_id, user_id FROM confirmations WHERE con_key = ? AND con_type = 0')) {
+                $stmt->bind_param('s', $a);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $stmt->close();
 
                 if ($result->num_rows == 1) {
                     $row = $result->fetch_assoc();
+                    
+                    $cid = $row['confirmation_id'];
+                    $uid = $row['user_id'];
 
-                    // O oznacza, że użytkownik nie został jeszcze zaaktywowany
-                    if ($row['user_status'] == 0) {
-
-                        //Jeśli nie został aktywowany, to prawdzam czy istnieje wpis aktywacyjny w tabeli confirmations
-                        if ($stmt = $this->mysqliConn->prepare('SELECT confirmation_id, user_id, con_key FROM confirmations WHERE user_id = ? AND con_type = 0 AND con_key = ?')) {
-                            $stmt->bind_param('is', $uid, $a);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
-                            $stmt->close();
-                            
-                            //Jeśli wszystko jest ok, to usuwam wpis aktywacyjny z tabeli confirmations i zmieniam status konta na aktywowany
-                            if ($result->num_rows == 1) {
-                                $row = $result->fetch_assoc();
-
-                                $cid = $row['confirmation_id'];
-                                $uid = $row['user_id'];
-
-                                //Tutaj mogę już to zrobić w taki mniej bezpieczny sposób, bo operuje na danych wyciągnietych z bazy, a nie podanych przez użykownika w linku
-                                if (
-                                    $this->mysqliConn->query("DELETE FROM confirmations WHERE confirmation_id = $cid") &&
-                                    $this->mysqliConn->query("UPDATE users SET user_status = 1 WHERE user_id = $uid")
-                                ) {
-                                    $alert = '<span style="color: #5cb85c">Konto zostało aktywowane, możesz się teraz zalogować</span>';
-                                } else {
-                                    throw new Exception('Wystąpił błąd w czasie aktywacji konta');
-                                }
-
-                            } else {
-                                $alert = '<span style="color: #dc3545">Kod aktywacyjny się nie zgadza</span>';
-                            }
-
-                        } else {
-                            throw new Exception('Wystąpił błąd w czasie aktywacji konta');
-                        }
-
+                    if (
+                        $this->mysqliConn->query("DELETE FROM confirmations WHERE confirmation_id = $cid") &&
+                        $this->mysqliConn->query("UPDATE users SET user_status = 1 WHERE user_id = $uid")
+                    ) {
+                        return true;
                     } else {
-                        $alert = '<span style="color: #dc3545">Konto zostało już aktywowane</span>';
+                        throw new Exception('Wystąpił błąd w czasie aktywacji konta');
                     }
-
                 } else {
-                    $alert = '<span style="color: #dc3545">Nie znaleziono użytkownika</span>';
+                    return false;
                 }
-
-                return $alert;
-
             } else {
                 throw new Exception('Wystąpił błąd w czasie aktywacji konta');
             }
