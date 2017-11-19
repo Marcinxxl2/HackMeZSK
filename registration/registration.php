@@ -32,7 +32,7 @@
         ($regulations == 'accepted') && 
         (captchaVerify() == true)
     ) {
-        require '../includes/php/management/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+        require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
         
         $conn = new DatabaseConnection();
 

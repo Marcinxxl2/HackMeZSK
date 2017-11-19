@@ -5,7 +5,7 @@
     }
 
     session_start();
-    require '../includes/php/management/dbConn.php';
+    require '../includes/php/dbConn.php';
 
     $conn = new DatabaseConnection;
     $alertText = $conn->activateAccount($_GET['uid'], $_GET['a']);

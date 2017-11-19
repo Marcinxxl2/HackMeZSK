@@ -1,10 +1,10 @@
-<?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/beforeHeadA.php'; ?>
+<?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>
 
     <title>Logowanie</title>
     <link rel="stylesheet" type="text/css" href="/HackMeZSK/includes/css/login.css">
     <script src="../includes/js/login.js"></script>
 
-<?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterHeadA.php'; ?>
+<?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
     <form action="login.php" method="POST" id="loginForm">
@@ -16,4 +16,4 @@
     <a href="#" id="passRemind" class="textLink">Nie pamiętasz hasła?</a>
 </div>
 
-<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/afterContent.php'; ?>
+<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterContent.php'; ?>

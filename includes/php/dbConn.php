@@ -97,7 +97,7 @@
                     $stmt->execute();
                     $stmt->close();
 
-                    $activationLink = '127.0.0.1/HackMeZSK/activation/activation.php?uid='.$userId.'&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
+                    $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?uid='.$userId.'&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
 
                     /* 
                     Aby wysyłanie maili zadziałało trzeba ustawić:
@@ -265,10 +265,8 @@
             } else {
                 throw new Exception('Błąd zapytania do bazy');
             }
-            
-        }
 
-        
+        }
 
         //Funkcja wykonuje podane zapytanie SQL
         //Zwraca obiekt wynikowy
