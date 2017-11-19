@@ -1,5 +1,4 @@
 PHP:
-- Zrobić system aktywacyjny
 - Zrobić system logowania
 
 Mysql:

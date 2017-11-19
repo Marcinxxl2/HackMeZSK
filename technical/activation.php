@@ -1,36 +1,30 @@
 <?php
-    if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    if (!isset($_GET['a'])) {
         header('Location: ../index.php');
         exit();
     }
 
     session_start();
     
-    require '../includes/php/dbConn.php';
+    require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+    require '../includes/php/usefulFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
 
     $conn = new DatabaseConnection;
 
     if ($conn->activateAccount($_GET['a'])) {
-        $_SESSION['activationAlert'] = '<div class="alertBox"><div class="alertBoxText"><span style="color: #5cb85c">Konto zostało aktywowane, możesz się teraz zalogować</span></div><div class="closeSymbol">&#10006;</div></div>';
+
+        $_SESSION['mainAlert'] = echoAlertBox('good', 'Konto zostało aktywowane, możesz się teraz zalogować');
+               
     } else {
 
-        $_SESSION['activationAlert'] = <<<'TEXT'
-        <div class="alertBox">
-            <div class="alertBoxText">
-                <span style="color: #dc3545">
-                    Konto nie zostało aktywowane, możliwe przyczyny:
-                    <ul>
-                        <li>Konto zostało już aktywowane</li>
-                        <li>Konto zostało usunięte</li>
-                        <li>Klucz aktywacyjny jest błędny</li>
-                    </ul>
-                </span>
-            </div>
-            <div class="closeSymbol">
-                &#10006;
-            </div>
-        </div>
-TEXT;
+        $_SESSION['mainAlert'] = echoAlertBox('bad', '
+            Konto nie zostało aktywowane, możliwe przyczyny:
+            <ul>
+                <li>Konto zostało już aktywowane</li>
+                <li>Konto zostało usunięte</li>
+                <li>Klucz aktywacyjny jest błędny</li>
+            </ul>
+        ');
 
     }
 

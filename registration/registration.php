@@ -33,6 +33,7 @@
         (captchaVerify() == true)
     ) {
         require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+        require '../includes/php/usefulFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
         
         $conn = new DatabaseConnection();
 
@@ -54,13 +55,18 @@
             exit();
         }
 
-        $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
+        $uid = $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
         $conn->closeConnection();
-        $_SESSION['userAdded'] = '<div class="alertBox"><div class="alertBoxText"><span style="color: #5cb85c">Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować</span></div><div class="closeSymbol">&#10006;</div></div>';
+
+        $_SESSION['mainAlert'] = echoAlertBox('good', 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować. Jeśli wiadomość nie doszła możesz ją wysłać ponownie tutaj:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
+
         header('Location: ../index.php');
 
     } else {
-        $_SESSION['regAlert'] = '<div class="alertBox"><div class="alertBoxText"><span style="color: #dc3545">Dane wysłane na serwer nie przeszły weryfikacji</span></div><div class="closeSymbol">&#10006;</div></div>';
+
+        $_SESSION['mainAlert'] = echoAlertBox('bad', 'Dane wysłane na serwer nie przeszły weryfikacji');
+      
+
         header('Location: index.php');
     }
 ?>

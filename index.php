@@ -9,8 +9,7 @@
 
 <div id="content">
     <?php 
-        echoSessionAlert('userAdded');
-        echoSessionAlert('activationAlert');
+        echoSessionAlert('mainAlert');
     ?>
 </div>
 

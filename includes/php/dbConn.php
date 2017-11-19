@@ -79,7 +79,7 @@
         //Zostaje dodany wiersz do tabeli users i do tabeli confirmations w celu późniejszej aktywacji konta
         //Link aktywacyjny jest tworzony z połączonego stringa aktalnego czasu, podanego emailu i nazwy uzytkownika i jest zamieniany na hash md5
         //Link aktywacyjny zostaje wysłany na podany email 
-        //Nic nie zwraca
+        //Zwraca user_id jeśli dodanie się udało
         public function addUserToDatabase ($username, $password, $email, $firstname, $lastname) { 
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -115,6 +115,8 @@
                     */
 
                     mail($email, 'Aktywacja konta', 'Link aktywacyjny: '.$activationLink.' <br> Jeśli nie aktywujesz swojego konta w przeciągu 30 dni, zostanie one usunięte i będziesz musiał zarejstrować je na nowo.', 'Content-Type: text/html; charset=UTF-8');
+                    
+                    return $userId;
 
                 } else {
                     throw new Exception('Wystąpił błąd przy dodawaniu wpisu do aktywacji konta');
@@ -122,6 +124,31 @@
 
             } else {
                 throw new Exception('Wystąpił błąd przy dodawaniu użytkownika do bazy');
+            }
+
+        }
+        //Funkcja wysyła ponownie kod aktywacyjny
+        //Zwraca true jeśli się udało, false jeśli się nie udało
+        public function reSendActivationCode ($uid) {
+
+            if ($stmt = $this->mysqliConn->prepare('SELECT users.email, confirmations.con_key FROM users INNER JOIN confirmations on users.user_id = confirmations.user_id WHERE users.user_id = ?')) {
+                $stmt->bind_param('i', $uid);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows == 1) {
+                    $row = $result->fetch_assoc();
+
+                    $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?&a='.$row['con_key'];
+                    mail($row['email'], 'Ponownie wysłany link aktywacyjny', 'Link aktywacyjny: '.$activationLink, 'Content-Type: text/html; charset=UTF-8');
+                    
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                throw new Exception('Wystąpił błąd przy ponownym wysyłaniu kodu aktywacyjnego');
             }
 
         }
@@ -246,7 +273,7 @@
         }
 
         public function __destruct () {
-            $this->mysqliConn->close();
+            //$this->mysqliConn->close();
         }
     }
 
