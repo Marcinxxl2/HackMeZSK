@@ -1,5 +1,5 @@
 PHP:
-- Zrobić system logowania
+- Zrobić interfejs dla zalogowanego użytkownika
 
 Mysql:
 - Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dni

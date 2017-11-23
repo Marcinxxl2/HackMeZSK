@@ -1,11 +1,11 @@
 <?php
 
+    session_start();
+
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         header('Location: index.php');
         exit();
     }
-    
-    session_start();
     
     $login = $_POST['login'];
     $email = $_POST['email'];

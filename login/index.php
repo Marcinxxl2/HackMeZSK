@@ -1,3 +1,4 @@
+<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/echoFunctions.php'; ?>
 <?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>
 
     <title>Logowanie</title>
@@ -11,7 +12,7 @@
         <div><label>Podaj login: <input type="text" name="login" maxlength="45"></label></div>
         <div><label>Podaj hasło: <input type="password" name="pass" maxlength="45"></label></div>
         <button type="button" class="niceButton">Zaloguj</button>
-        <span id="alert"></span>
+        <span id="alert"><?php echoSessionAlert('loginError'); ?></span>
     </form>
     <a href="#" id="passRemind" class="textLink">Nie pamiętasz hasła?</a>
 </div>
