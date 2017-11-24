@@ -39,9 +39,6 @@
     text-decoration: none;
     color: #66fcf1;
 }
-#regisForm button:focus {
-    outline: 0px !important;
-}
 #regisForm button {
     margin-left: 15px;
     margin-top: 25px;

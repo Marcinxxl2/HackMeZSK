@@ -137,6 +137,9 @@ body, html {
     color: #c5c6c7;
     cursor: pointer;
 }
+form button:focus {
+    outline: 0px !important;
+}
 
 /* Globalne css */
 .niceButton {

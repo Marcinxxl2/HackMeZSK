@@ -8,14 +8,14 @@ form {
 form div {
     margin-top: 20px;
 }
+form div:first-child input {
+    margin-left: 34px;
+}
 form div input {
     font-size: 18px;
     margin-left: 10px;
     padding: 4px;
     width: 250px;
-}
-form div:first-child input {
-    margin-left: 15px;
 }
 form button {
     margin-top: 20px;
@@ -26,18 +26,13 @@ form button {
 form button:hover {
     cursor: pointer;
 }
+.passRemindChangeAlert {
+    font-size: 18px;
+    color: #dc3545;
+    margin-top: 1px;
+    height: 22px;
+}
 .warningInput {
     border: 2px solid #dc3545;
     border-radius: 4px;
-}
-#alert {
-    color: #dc3545;
-    padding-left: 15px;
-}
-#passRemind {
-    display: block;
-    margin-left: 40px;
-    margin-top: 10px;
-    font-size: 14px;
-    width: 140px;
 }

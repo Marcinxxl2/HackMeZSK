@@ -1,4 +1,5 @@
 PHP:
+- Zrobić skrypt js dla pliku passRemindChange/index.php
 - Zrobić interfejs dla zalogowanego użytkownika
 
 Mysql:

@@ -14,7 +14,7 @@
         <button type="button" class="niceButton">Zaloguj</button>
         <span id="alert"><?php echoSessionAlert('loginError'); ?></span>
     </form>
-    <a href="#" id="passRemind" class="textLink">Nie pamiętasz hasła?</a>
+    <a href="../technical/passRemind/" id="passRemind" class="textLink">Nie pamiętasz hasła?</a>
 </div>
 
 <?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterContent.php'; ?>
