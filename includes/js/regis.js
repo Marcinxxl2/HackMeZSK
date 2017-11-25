@@ -20,12 +20,6 @@ $(document).ready(function () {
     var elRegu = f.regulations;
 
     var elSubmitButton = $('#regisForm button');
-    
-    var regLogin = /^\w{2,45}$/;
-    var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var regFirstname = /^[\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,45}$/;
-    var regLastname = /^[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}(\-[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}$)?$/;
-    var regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/; //Minimum 8 znaków, przynajmniej jedna litera, cyfra i znak specjalny
 
     var aLogin = $('#alertLogin');
     var aEmail = $('#alertEmail');
@@ -40,6 +34,12 @@ $(document).ready(function () {
     var aMeterLetter = $('#meterLetter');
     var aMeterDigit = $('#meterDigit');
     var aMeterSpecial = $('#meterSpecial');
+
+    var regLogin = /^\w{2,45}$/;
+    var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var regFirstname = /^[\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,45}$/;
+    var regLastname = /^[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}(\-[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}$)?$/;
+    var regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/; //Minimum 8 znaków, przynajmniej jedna litera, cyfra i znak specjalny
     
     function switchClass (element, classToRemoveName, classToAddName) {
         $(element).removeClass(classToRemoveName);

@@ -11,7 +11,7 @@
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
-    <?php echoSessionAlert('regAlert'); ?>
+    <?php echoSessionAlert('passRemindChangeAlert'); ?>
     <form action="registration.php" method="POST" id="regisForm">
         <div class="regisSide">
             <div>
