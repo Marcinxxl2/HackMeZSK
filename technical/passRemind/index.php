@@ -9,6 +9,7 @@
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
+    <?php echoSessionAlert('passRemindAlert'); ?>
     <form action="send.php" method="POST" id="passRemindForm">
         Link do zmiany hasła zostanie wysłany na podany poniżej E-mail
         <div><label>Podaj E-mail: <input type="text" name="email" maxlength="45"></label></div>

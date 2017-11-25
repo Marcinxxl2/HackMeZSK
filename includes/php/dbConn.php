@@ -31,7 +31,7 @@
 
         //Funkcja sprawdza czy istnieje juz podany login w bazie
         //Zwraca true jeśli istnieje, false jeśli nie istnieje
-        public function whetherUsernameAlreadyExists ($username) {
+        public function whetherUsernameExists ($username) {
 
             if ($stmt = $this->mysqliConn->prepare('SELECT username FROM users WHERE username = ?')) {
 
@@ -54,7 +54,7 @@
 
         //Funkcja sprawdza czy istnieje juz podany Email w bazie
         //Zwraca true jeśli istnieje, false jeśli nie istnieje
-        public function whetherEmailAlreadyExists ($email) {
+        public function whetherEmailExists ($email) {
 
             if ($stmt = $this->mysqliConn->prepare('SELECT email FROM users WHERE email = ?')) {
 
@@ -127,11 +127,12 @@
             }
 
         }
+
         //Funkcja wysyła ponownie kod aktywacyjny
         //Zwraca true jeśli się udało, false jeśli się nie udało
         public function reSendActivationCode ($uid) {
 
-            if ($stmt = $this->mysqliConn->prepare('SELECT users.email, confirmations.con_key FROM users INNER JOIN confirmations on users.user_id = confirmations.user_id WHERE users.user_id = ?')) {
+            if ($stmt = $this->mysqliConn->prepare('SELECT users.email, confirmations.con_key FROM users INNER JOIN confirmations on users.user_id = confirmations.user_id WHERE users.user_id = ? AND confirmations.con_type = 0')) {
                 $stmt->bind_param('i', $uid);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -151,6 +152,51 @@
                 throw new Exception('Wystąpił błąd przy ponownym wysyłaniu kodu aktywacyjnego');
             }
 
+        }
+
+        //Funkcja wysyła link do zmiany hasła
+        //Zwraca true jeśli znaleziono użytkownika o podanym E-mailu, false jeśli nie znaleziono
+        public function sendPasswordResetCode ($email) {
+            if ($stmt = $this->mysqliConn->prepare('SELECT user_id, username FROM users WHERE email = ?')) {
+                
+                $stmt->bind_param('s', $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows == 1) {
+                    
+                    $row = $result->fetch_assoc();
+                    $userId = $row['user_id'];
+                    $username = $row['username'];
+                    
+                    //Jeśli kod już istnieje, zostanie on zastępiony nowym, więc trzeba najpierw usunąć stary
+                    //Mogę użyć mniej bezpiecznej formy, bo user_id jest pobierany z bazy
+                    if (!$this->mysqliConn->query("DELETE FROM confirmations WHERE user_id = $userId AND con_type = 1")) {
+                        throw new Exception('Błąd przy generowaniu kodu do zmiany hasła');
+                    }
+
+                    $passwordChangeCode = md5($username.$email.time());
+
+                    if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_DATE(), 1)')) {
+                        $stmt->bind_param('ss', $userId, $passwordChangeCode);
+                        $stmt->execute();
+                        $stmt->close();
+
+                        $passwordChangeLink = '127.0.0.1/HackMeZSK/technical/passRemindChange/index.php?&c='.$passwordChangeCode;
+
+                        mail($email, 'Reset hasła', 'Link do zmiany hasła: '.$passwordChangeLink, 'Content-Type: text/html; charset=UTF-8');
+                        return true;
+
+                    } else {
+                        throw new Exception('Błąd przy generowaniu kodu do zmiany hasła');
+                    }
+                }
+                return false;
+
+            } else {
+                throw new Exception('Błąd zapytania do bazy');
+            }
         }
 
         //Fukcja aktywuje konto
@@ -174,6 +220,43 @@
                         $this->mysqliConn->query("UPDATE users SET user_status = 1 WHERE user_id = $uid")
                     ) {
                         return true;
+                    } else {
+                        throw new Exception('Wystąpił błąd w czasie aktywacji konta');
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                throw new Exception('Wystąpił błąd w czasie aktywacji konta');
+            }
+
+        }
+
+        //Fukcja zmienia hasło poprzez opcje przypomnienia hasła
+        //Zwraca true jeśli zmiana się powiodła, false jeśli się nie powiodła
+        public function remindPasswordChange ($c, $newPassword) {
+            
+            if ($stmt = $this->mysqliConn->prepare('SELECT confirmation_id, user_id FROM confirmations WHERE con_key = ? AND con_type = 1')) {
+                $stmt->bind_param('s', $c);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
+
+                if ($result->num_rows == 1) {
+                    $row = $result->fetch_assoc();
+                    
+                    $cid = $row['confirmation_id'];
+                    $uid = $row['user_id'];
+                    $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                    if (
+                        $this->mysqliConn->query("DELETE FROM confirmations WHERE confirmation_id = $cid") &&
+                        $stmt = $this->mysqliConn->prepare('UPDATE users SET password_hash = ? WHERE user_id = ?')
+                    ) {
+                        $stmt->bind_param('si', $passwordHash, $uid);
+                        $stmt->execute();
+                        return true;
+                        
                     } else {
                         throw new Exception('Wystąpił błąd w czasie aktywacji konta');
                     }

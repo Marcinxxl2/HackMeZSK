@@ -15,11 +15,7 @@
     $password2 = $_POST['password2'];
     $regulations = $_POST['regulations'];
 
-    function captchaVerify () {
-        $secretKey = '6LdkzzYUAAAAAKRrwDRi5--ZqAO1RZlir7JMZ4lN';
-        $test = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']));
-        return $test->success; 
-    }
+    require '../../includes/php/captchaVerify.php';
 
     if (
         preg_match('/^\w{2,45}$/', $login) &&
@@ -34,39 +30,39 @@
     ) {
         require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
         require '../includes/php/echoFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
-        
-        $conn = new DatabaseConnection();
+        try {
+            $conn = new DatabaseConnection();
 
-        $somethingTaken = false;
+            $somethingTaken = false;
 
-        if ($conn->whetherUsernameAlreadyExists($login)) {
-            $_SESSION['usernameAlreadyExists'] = 'Login jest już zajęty';
-            $somethingTaken = true;
-        }
+            if ($conn->whetherUsernameExists($login)) {
+                $_SESSION['usernameAlreadyExists'] = 'Login jest już zajęty';
+                $somethingTaken = true;
+            }
 
-        if ($conn->whetherEmailAlreadyExists($email)) {
-            $_SESSION['emailAlreadyExists'] = 'E-mail jest już zajęty';
-            $somethingTaken = true;
-        }
+            if ($conn->whetherEmailExists($email)) {
+                $_SESSION['emailAlreadyExists'] = 'E-mail jest już zajęty';
+                $somethingTaken = true;
+            }
 
-        if ($somethingTaken) {
+            if ($somethingTaken) {
+                $conn->closeConnection();
+                header('Location: index.php');
+                exit();
+            }
+
+            $uid = $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
             $conn->closeConnection();
-            header('Location: index.php');
-            exit();
+
+            $_SESSION['mainAlert'] = echoAlertBox('good', 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować. Jeśli wiadomość nie doszła możesz ją wysłać ponownie tutaj:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
+
+            header('Location: ../index.php');
         }
-
-        $uid = $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
-        $conn->closeConnection();
-
-        $_SESSION['mainAlert'] = echoAlertBox('good', 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować. Jeśli wiadomość nie doszła możesz ją wysłać ponownie tutaj:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
-
-        header('Location: ../index.php');
-
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
     } else {
-
-        $_SESSION['mainAlert'] = echoAlertBox('bad', 'Dane wysłane na serwer nie przeszły weryfikacji');
-      
-
+        $_SESSION['regAlert'] = echoAlertBox('bad', 'Dane wysłane na serwer nie przeszły weryfikacji');
         header('Location: index.php');
     }
 ?>

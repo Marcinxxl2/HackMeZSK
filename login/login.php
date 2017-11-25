@@ -15,35 +15,39 @@
         preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/', $pass)
     ) {
         require '../includes/php/dbConn.php';
-        $conn = new DatabaseConnection();
+        try {
+            $conn = new DatabaseConnection();
 
-        if ($uid = $conn->areLoginCredentialsValid($login, $pass)) {
+            if ($uid = $conn->areLoginCredentialsValid($login, $pass)) {
 
-            require '../includes/php/echoFunctions.php';
+                require '../includes/php/echoFunctions.php';
 
-            $_SESSION['userData'] = $conn->getUserData($uid);
+                $_SESSION['userData'] = $conn->getUserData($uid);
 
-            if ($_SESSION['userData']['user_status'] == 1) {
+                if ($_SESSION['userData']['user_status'] == 1) {
 
-                $_SESSION['userSolutions'] = $conn->getUserSolutions($uid);
-                $_SESSION['mainAlert'] = echoAlertBox('good', 'Zalogowano');
-                header('Location: ../');
+                    $_SESSION['userSolutions'] = $conn->getUserSolutions($uid);
+                    $_SESSION['mainAlert'] = echoAlertBox('good', 'Zalogowano');
+                    header('Location: ../');
+
+                } else {
+
+                    unset($_SESSION['userData']);
+                    $_SESSION['mainAlert'] = echoAlertBox('bad', 'Konto nie zostało aktywowane, jeśli nie dostałeś E-maila aktywacyjnego, możesz wysłać go ponownie klikając w ten link:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
+                    header('Location: ../');
+
+                }
 
             } else {
-
-                unset($_SESSION['userData']);
-                $_SESSION['mainAlert'] = echoAlertBox('bad', 'Konto nie zostało aktywowane, jeśli nie dostałeś E-maila aktywacyjnego, możesz wysłać go ponownie klikając w ten link:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
-                header('Location: ../');
-
+                $_SESSION['loginError'] = 'Niepoprawne dane logowania';
+                header('Location: /');
             }
 
-        } else {
-            $_SESSION['loginError'] = 'Niepoprawne dane logowania';
-            header('Location: /');
+            $conn->closeConnection();
+        } 
+        catch (Exception $e) {
+            echo $e->getMessage();
         }
-
-        $conn->closeConnection();
-
     } else {
         $_SESSION['loginError'] = 'Niepoprawne dane logowania';
         header('Location: /');

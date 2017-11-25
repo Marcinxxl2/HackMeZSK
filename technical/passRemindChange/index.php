@@ -1,4 +1,9 @@
 <?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/echoFunctions.php'; ?>
+<?php
+    if (!isset($_GET['c'])) {
+        header('Location: ../../index.php');
+    }
+?>
 <?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>
 
     <title>Logowanie</title>
@@ -8,7 +13,7 @@
 <?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
-    <form action="send.php" method="POST" id="passRemindChangeForm">
+    <form action="change.php" method="POST" id="passRemindChangeForm">
         <div><label>Podaj nowe hasło: <input type="password" name="password1" maxlength="45"></label></div>
         <div id="passwordMeter" hidden>
             <div id="meterLength" class='badText'>Minimum 8 znaków</div>
@@ -24,3 +29,6 @@
 </div>
 
 <?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterContent.php'; ?>
+<?php
+    $_SESSION['passwordChangeCode'] = $_GET['c'];
+?>
