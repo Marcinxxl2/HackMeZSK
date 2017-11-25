@@ -16,6 +16,8 @@
                     } else {
                         echo "Błąd połączenia z bazą";
                     }
+                    
+                    $conn->closeConnection();
                 } 
                 catch (Exception $e) {
                     echo $e->getMessage();
