@@ -84,7 +84,7 @@
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-            if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, CURRENT_DATE(), default)')) {
+            if ($stmt = $this->mysqliConn->prepare('INSERT INTO users VALUES (default, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP(), default)')) {
                 $stmt->bind_param('sssss', $username, $passwordHash, $email, $firstname, $lastname);
                 $stmt->execute();
                 $stmt->close();
@@ -92,7 +92,7 @@
                 $userId = $this->mysqliConn->insert_id; //mysqliConn->insert_id zwraca id ostatnio dodanego wiersza
                 $activationCode = md5($username.$email.time());
 
-                if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_DATE(), 0)')) {
+                if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_TIMESTAMP(), 0)')) {
                     $stmt->bind_param('ss', $userId, $activationCode);
                     $stmt->execute();
                     $stmt->close();
@@ -178,7 +178,7 @@
 
                     $passwordChangeCode = md5($username.$email.time());
 
-                    if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_DATE(), 1)')) {
+                    if ($stmt = $this->mysqliConn->prepare('INSERT INTO confirmations VALUES (default, ?, ?, CURRENT_TIMESTAMP(), 1)')) {
                         $stmt->bind_param('ss', $userId, $passwordChangeCode);
                         $stmt->execute();
                         $stmt->close();

@@ -15,7 +15,7 @@
     $password2 = $_POST['password2'];
     $regulations = $_POST['regulations'];
 
-    require '../../includes/php/captchaVerify.php';
+    require '../includes/php/captchaVerify.php';
 
     if (
         preg_match('/^\w{2,45}$/', $login) &&

@@ -15,17 +15,23 @@
     ) {
         require '../../includes/php/dbConn.php';
         require '../../includes/php/echoFunctions.php';
-        $conn = new DatabaseConnection();
-    
-        if ($conn->remindPasswordChange($_SESSION['passwordChangeCode'], $password1)) {
-            $_SESSION['mainAlert'] = echoAlertBox('good', 'Hasło zostało zmienione, możesz się teraz zalogować');
-            header('Location: ../../index.php');
-        } else {
-            $_SESSION['mainAlert'] = echoAlertBox('bad', 'Kod do zmiany hasła jest nieprawidłowy');
-            header('Location: ../../index.php');
+        try {
+            
+            $conn = new DatabaseConnection();
+            
+            if ($conn->remindPasswordChange($_SESSION['passwordChangeCode'], $password1)) {
+                $_SESSION['mainAlert'] = echoAlertBox('good', 'Hasło zostało zmienione, możesz się teraz zalogować');
+                header('Location: ../../index.php');
+            } else {
+                $_SESSION['mainAlert'] = echoAlertBox('bad', 'Kod do zmiany hasła jest nieprawidłowy');
+                header('Location: ../../index.php');
+            }
+        
+            $conn->closeConnection();
         }
-    
-        $conn->closeConnection();
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
         
     } else {
         $_SESSION['regAlert'] = echoAlertBox('bad', 'Dane wysłane na serwer nie przeszły weryfikacji');

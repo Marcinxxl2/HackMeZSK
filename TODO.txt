@@ -1,6 +1,6 @@
 PHP:
-- Zrobić skrypt js dla pliku passRemindChange/index.php
 - Zrobić interfejs dla zalogowanego użytkownika
+- Zrobić zakładkę konto z tabelą ile punktów się ma i jakie zadania już zostały rozwiązanie a jakie nie
 
 Mysql:
 - Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dni

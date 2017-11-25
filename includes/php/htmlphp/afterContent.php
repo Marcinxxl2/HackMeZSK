@@ -1,43 +1,29 @@
         <div id="rightSide">
-            <!-- Na razie testowa, potem zrobić auto generowanie w php -->
-            <table>
-                <tr>
-                    <th>#</th><th>Nazwa użytkownika</th><th>Punkty</th>
-                </tr>
-                <tr>
-                    <td>1.</td><td>test</td><td>3123</td>
-                </tr>
-                <tr>
-                    <td>2.</td><td>test2</td><td>2131</td>
-                </tr>
-                <tr>
-                    <td>3.</td><td>test3</td><td>1184</td>
-                </tr>
-                <tr>
-                    <td>4.</td><td>test4</td><td>459</td>
-                </tr>
-                <tr>
-                    <td>5.</td><td>test5</td><td>234</td>
-                </tr>
-                <tr>
-                    <td>6.</td><td>test6</td><td>234</td>
-                </tr>
-                <tr>
-                    <td>7.</td><td>test7</td><td>234</td>
-                </tr>
-                <tr>
-                    <td>8.</td><td>test8</td><td>234</td>
-                </tr>
-                <tr>
-                    <td>9.</td><td>test9</td><td>234</td>
-                </tr>
-                <tr>
-                    <td>10.</td><td>test10</td><td>234</td>
-                </tr>
-            </table>
+            <?php
+                require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/dbConn.php';
+                try {
+                    $conn = new DatabaseConnection();
+
+                    if ($result = $conn->customQuery('SELECT * FROM ranking')) {
+                        $i = 1;
+                        echo '<table>';
+                        echo '<tr><th>#</th><th>Nazwa użytkownika</th><th>Punkty</th></tr>';
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<tr><td>'.$i.'</td><td>'.$row['user'].'</td><td>'.$row['num_of_points'].'</td></tr>';
+                            $i++;
+                        }
+                        echo '</table>';
+                    } else {
+                        echo "Błąd połączenia z bazą";
+                    }
+                } 
+                catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+            ?>
         </div>
         <div id="footer">
-        
+                Marcin Tajser &copy; <?php echo date('Y') ?>
         </div>
     </div>
 </body>
