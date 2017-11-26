@@ -14,19 +14,25 @@
         preg_match('/^\w{2,45}$/', $login) &&
         preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/', $pass)
     ) {
-        require '../includes/php/dbConn.php';
+        require_once '../includes/php/dbConn.php';
         try {
             $conn = new DatabaseConnection();
 
             if ($uid = $conn->areLoginCredentialsValid($login, $pass)) {
 
-                require '../includes/php/echoFunctions.php';
+                require_once '../includes/php/echoFunctions.php';
 
                 $_SESSION['userData'] = $conn->getUserData($uid);
 
                 if ($_SESSION['userData']['user_status'] == 1) {
 
-                    $_SESSION['userSolutions'] = $conn->getUserSolutions($uid);
+                    //Jeśli użytkownik nie rozwiązał jeszcze żadnego zadania, $_SESSION['userSolutions'] przyjmie pustą tablice
+                    if ($solutionsArray = $conn->getUserSolutions($uid)) {
+                        $_SESSION['userSolutions'] = $solutionsArray;
+                    } else {
+                        $_SESSION['userSolutions'] = array();
+                    }
+
                     $_SESSION['mainAlert'] = echoAlertBox('good', 'Zalogowano');
                     header('Location: ../');
 

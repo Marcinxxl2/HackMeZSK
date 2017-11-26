@@ -6,8 +6,8 @@
 
     session_start();
     
-    require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
-    require '../includes/php/echoFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
+    require_once '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+    require_once '../includes/php/echoFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
 
     try {
         $conn = new DatabaseConnection;

@@ -15,7 +15,7 @@
     $password2 = $_POST['password2'];
     $regulations = $_POST['regulations'];
 
-    require '../includes/php/captchaVerify.php';
+    require_once '../includes/php/captchaVerify.php';
 
     if (
         preg_match('/^\w{2,45}$/', $login) &&
@@ -28,8 +28,8 @@
         ($regulations == 'accepted') && 
         (captchaVerify() == true)
     ) {
-        require '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
-        require '../includes/php/echoFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
+        require_once '../includes/php/dbConn.php'; //Tutaj zanjduje się moja klasa do połączeń z bazą danych, aby kod był bardziej czytelny
+        require_once '../includes/php/echoFunctions.php'; //Tutaj znajduje się funkcja wyświetlająca okienko z informacją
         try {
             $conn = new DatabaseConnection();
 

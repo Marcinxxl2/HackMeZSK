@@ -1,6 +1,6 @@
         <div id="rightSide">
             <?php
-                require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/dbConn.php';
+                require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/dbConn.php';
                 try {
                     $conn = new DatabaseConnection();
 
@@ -9,7 +9,7 @@
                         echo '<table>';
                         echo '<tr><th>#</th><th>Nazwa użytkownika</th><th>Punkty</th></tr>';
                         while ($row = $result->fetch_assoc()) {
-                            echo '<tr><td>'.$i.'</td><td>'.$row['user'].'</td><td>'.$row['num_of_points'].'</td></tr>';
+                            echo '<tr><td>'.$i.'.</td><td>'.$row['user'].'</td><td>'.$row['num_of_points'].'</td></tr>';
                             $i++;
                         }
                         echo '</table>';

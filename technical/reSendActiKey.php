@@ -6,8 +6,8 @@
 
     session_start();
     
-    require '../includes/php/dbConn.php';
-    require '../includes/php/echoFunctions.php';
+    require_once '../includes/php/dbConn.php';
+    require_once '../includes/php/echoFunctions.php';
     try {
         $conn = new DatabaseConnection;
 

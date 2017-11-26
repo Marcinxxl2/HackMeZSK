@@ -1,0 +1,55 @@
+#levelsTable {
+    color: #c5c6c7;
+    width: 100%;
+    border-collapse: collapse;
+}
+#levelsTable th, #levelsTable td {
+    padding: 9px 4px 9px 4px;
+    text-align: center;
+}
+#levelsTable th {
+    background-color: #151b22;
+    font-size: 16px;
+    border: 1px solid #1f2833;
+}
+#levelsTable td {
+    background-color: #1f2833;
+    font-size: 15px;
+    border-bottom: 1px solid #303e4f;
+}
+#levelsTable th:nth-child(1) {
+    width: 3%;
+}
+#levelsTable th:nth-child(2) {
+    width: 7%;
+}
+#levelsTable th:nth-child(3) {
+    width: 60%;
+}
+#levelsTable th:nth-child(4) {
+    width: 8%;
+}
+#levelsTable th:nth-child(5) {
+    width: 11%;
+}
+#levelsTable th:nth-child(6) {
+    width: 11%;
+}
+#levelsTableLinkToLevel {
+    padding: 0px !important;
+}
+#levelsTableLinkToLevel a {
+    font-size: 17px;
+    text-decoration: none;
+    color: #66fcf1;
+}
+#levelsTableDoneSymbol {
+    color: #5cb85c;
+    padding: 0px !important;
+    font-size: 20px !important;
+}
+#levelsTableNotDoneSymbol {
+    color: #dc3545;
+    padding: 0px !important;
+    font-size: 20px !important;
+}

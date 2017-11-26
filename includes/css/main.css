@@ -73,7 +73,10 @@ body, html {
     margin-top: 4px;
     margin-left: 15px;
 }
-#leftSide div {
+#leftSide a {
+    text-decoration: none;
+}
+#leftSide a div {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 19px;
@@ -93,11 +96,11 @@ body, html {
 #rightSide th {
     font-size: 17px;
 }
-#rightSide table, th, td {
+#rightSide table, #rightSide th, #rightSide td {
     border: 1px solid #1f2833;
     border-collapse: collapse;
 }
-#rightSide table th, td {
+#rightSide table th, #rightSide table td {
     padding: 3px;
 }
 #rightSide table tr:nth-child(odd) {

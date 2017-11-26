@@ -7,14 +7,14 @@
         exit();
     }
 
-    require '../../includes/php/captchaVerify.php';
+    require_once '../../includes/php/captchaVerify.php';
     $email = $_POST['email'];
 
 
     if (preg_match('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $email) && captchaVerify()) {
 
-        require '../../includes/php/dbConn.php';
-        require '../../includes/php/echoFunctions.php';
+        require_once '../../includes/php/dbConn.php';
+        require_once '../../includes/php/echoFunctions.php';
 
         try {
 

@@ -13,8 +13,8 @@
         preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/', $password2) && 
         $password1 === $password2
     ) {
-        require '../../includes/php/dbConn.php';
-        require '../../includes/php/echoFunctions.php';
+        require_once '../../includes/php/dbConn.php';
+        require_once '../../includes/php/echoFunctions.php';
         try {
             
             $conn = new DatabaseConnection();

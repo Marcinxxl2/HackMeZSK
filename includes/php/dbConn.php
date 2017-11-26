@@ -1,5 +1,5 @@
 <?php
-    require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/config/dbConfig.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/config/dbConfig.php';
 
     class DatabaseConnection {
 
@@ -320,7 +320,7 @@
         }
 
         //Funkcja pobiera rozwiązania zadań użytkownika
-        //Zwraca tablice z jeśli znaleziono rozwiązania, false jeśli nie znaleziono
+        //Zwraca tablice z rozwiązaniami jeśli znaleziono rozwiązania, false jeśli nie znaleziono
         //users_solutions jest widokiem
         public function getUserSolutions ($userId) {
             if ($stmt = $this->mysqliConn->prepare('SELECT level_name FROM users_solutions WHERE user_id = ?')) {

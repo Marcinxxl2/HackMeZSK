@@ -1,16 +1,16 @@
-<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/echoFunctions.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/echoFunctions.php'; ?>
 <?php
     if (!isset($_GET['c'])) {
         header('Location: ../../index.php');
     }
 ?>
-<?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>
+<?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>
 
     <title>Logowanie</title>
     <link rel="stylesheet" type="text/css" href="/HackMeZSK/includes/css/passRemindChange.css">
     <script src="../../includes/js/passRemindChange.js"></script>
 
-<?php /* </HEAD> */ require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
+<?php /* </HEAD> */ require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
     <form action="change.php" method="POST" id="passRemindChangeForm">
@@ -28,7 +28,7 @@
     </form>
 </div>
 
-<?php require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterContent.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterContent.php'; ?>
 <?php
     $_SESSION['passwordChangeCode'] = $_GET['c'];
 ?>
