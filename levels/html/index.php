@@ -19,7 +19,7 @@
         try {
 
             $conn = new DatabaseConnection();
-            if ($result = $conn->customQuery('SELECT levels.level_id, levels.level_name, levels.description, levels.points, levels.link FROM levels INNER JOIN categories on levels.category_id = categories.category_id WHERE categories.name = "HTML"')) {
+            if ($result = $conn->customQuery('SELECT levels.level_id, levels.level_name, levels.description, levels.points, levels.link FROM levels INNER JOIN categories on levels.category_id = categories.category_id WHERE categories.category_name = "HTML"')) {
 
                 $i = 1;
                 echo '<table id="levelsTable">';
@@ -33,7 +33,7 @@
                             <td>'.$row['description'].'</td>
                             <td>'.$row['points'].'</td>
                             <td id="levelsTableLinkToLevel"><a href="'.$row['link'].'" class="niceLink">Link</a></td>';
-                            if (in_array($row['level_id'], $_SESSION['userSolutions'])) {
+                            if (in_array($row['level_name'], $_SESSION['userSolutions'])) {
                                 echo '<td id="levelsTableDoneSymbol">&#x2714;</td>';
                             } else {
                                 echo '<td id="levelsTableNotDoneSymbol">&#x2718;</td>';
@@ -53,8 +53,6 @@
         catch (Exception $e) {
             echo $e->getMessage();
         }
-
-
     ?>
 </div>
 

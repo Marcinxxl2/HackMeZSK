@@ -1,0 +1,45 @@
+#levelsDoneTable {
+    color: #c5c6c7;
+    width: 100%;
+    border-collapse: collapse;
+}
+#levelsDoneTable th, #levelsDoneTable td {
+    padding: 9px 4px 9px 4px;
+    text-align: center;
+}
+#levelsDoneTable tr:nth-child(odd) {
+    background-color: #131920;
+}
+#levelsDoneTable tr:nth-child(even) {
+    background-color: #1f2833;
+}
+#levelsDoneTable th {
+    font-size: 17px;
+    border: 1px solid #1f2833;
+}
+#levelsDoneTable td {
+    font-size: 16px;
+    border: 1px solid #1f2833;
+}
+#levelsDoneTable td:first-child, #levelsDoneTable td:last-child, #levelsDoneTable th:first-child, #levelsDoneTable th:last-child {
+    border: transparent;
+}
+#levelsDoneTable th:nth-child(1) {
+    width: 14%;
+}
+#levelsDoneTable th:nth-child(2) {
+    width: 14%;
+}
+#levelsDoneTable th:nth-child(3) {
+    width: 60%;
+}
+#levelsDoneTable th:nth-child(4) {
+    width: 12%;
+}
+#levelsDoneTable tr:last-child td:first-child {
+    text-align: right !important;
+}
+#levelsDoneTable tr:last-child td:last-child {
+    font-weight: bold;
+}
+

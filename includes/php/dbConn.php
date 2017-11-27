@@ -322,7 +322,7 @@
         //Funkcja pobiera rozwiązania zadań użytkownika
         //Zwraca tablice z rozwiązaniami, tablica jest pusta jeśli użytkownik jeszcze nic nie rozwiązał
         //W tablicy znajduje się także indeks "numOfPoints" z ilością punktów użytkownika
-        //users_solutions jest widokiem
+        //users_solutions i ranking_full są widokami
         public function getUserSolutions ($userId) {
             if ($stmt = $this->mysqliConn->prepare('SELECT level_name FROM users_solutions WHERE user_id = ?')) {
                 $stmt->bind_param('i', $userId);

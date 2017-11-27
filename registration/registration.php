@@ -51,12 +51,12 @@
                 exit();
             }
 
+            $_SESSION['mainAlert'] = echoAlertBox('good', 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować. Jeśli wiadomość nie doszła możesz ją wysłać ponownie tutaj:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
+            header('Location: ../index.php');
+
             $uid = $conn->addUserToDatabase($login, $password1, $email, $firstname, $lastname);
             $conn->closeConnection();
 
-            $_SESSION['mainAlert'] = echoAlertBox('good', 'Zarejestrowano, możesz teraz aktywować swoje konto i się zalogować. Jeśli wiadomość nie doszła możesz ją wysłać ponownie tutaj:&nbsp;<a href="technical/reSendActiKey.php?uid='.$uid.'" class="textLink">Link</a>');
-
-            header('Location: ../index.php');
         }
         catch (Exception $e) {
             echo $e->getMessage();
