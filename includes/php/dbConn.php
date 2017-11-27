@@ -320,7 +320,8 @@
         }
 
         //Funkcja pobiera rozwiązania zadań użytkownika
-        //Zwraca tablice z rozwiązaniami jeśli znaleziono rozwiązania, false jeśli nie znaleziono
+        //Zwraca tablice z rozwiązaniami, tablica jest pusta jeśli użytkownik jeszcze nic nie rozwiązał
+        //W tablicy znajduje się także indeks "numOfPoints" z ilością punktów użytkownika
         //users_solutions jest widokiem
         public function getUserSolutions ($userId) {
             if ($stmt = $this->mysqliConn->prepare('SELECT level_name FROM users_solutions WHERE user_id = ?')) {
@@ -329,15 +330,28 @@
                 $result = $stmt->get_result();
                 $stmt->close();
 
+                $arrayForReturn = array();
                 if ($result->num_rows > 0) { 
-                    $varForReturn = array();
                     while ($row = $result->fetch_array(MYSQLI_NUM)) {
-                        array_push($varForReturn, $row[0]);
+                        array_push($arrayForReturn, $row[0]);
                     }
-                    return $varForReturn;
+                    if ($stmt = $this->mysqliConn->prepare('SELECT num_of_points FROM ranking_full WHERE user_id = ?')) {
+                        $stmt->bind_param('i', $userId);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $stmt->close();
+
+                        $row = $result->fetch_assoc();
+                        $arrayForReturn['numOfPoints'] = $row['num_of_points'];
+
+                    } else {
+                        throw new Exception('Błąd zapytania do bazy');
+                    }
                 } else {
-                    return false;
+                    $arrayForReturn['numOfPoints'] = 0;
                 }
+
+                return $arrayForReturn;
 
             } else {
                 throw new Exception('Błąd zapytania do bazy');
@@ -355,8 +369,11 @@
             $this->mysqliConn->close();
         }
 
+        //Destruktor, zakmnię połączenie z bazą danych, jeśli nie zostało ono zamknięte wcześniej
         public function __destruct () {
-            //$this->mysqliConn->close();
+            if (is_resource($this->mysqliConn)) {
+                $this->mysqliConn->close();
+            }
         }
     }
 

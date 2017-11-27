@@ -15,7 +15,15 @@
 #levelsTable td {
     background-color: #1f2833;
     font-size: 15px;
+}
+#levelsTable tr {
     border-bottom: 1px solid #303e4f;
+}
+#levelsTable tr:first-child {
+    border-bottom: none;
+}
+#levelsTable tr:last-child {
+    border-bottom: none;
 }
 #levelsTable th:nth-child(1) {
     width: 3%;

@@ -25,14 +25,9 @@
                 $_SESSION['userData'] = $conn->getUserData($uid);
 
                 if ($_SESSION['userData']['user_status'] == 1) {
-
-                    //Jeśli użytkownik nie rozwiązał jeszcze żadnego zadania, $_SESSION['userSolutions'] przyjmie pustą tablice
-                    if ($solutionsArray = $conn->getUserSolutions($uid)) {
-                        $_SESSION['userSolutions'] = $solutionsArray;
-                    } else {
-                        $_SESSION['userSolutions'] = array();
-                    }
-
+                    
+                    $_SESSION['userSolutions'] = $conn->getUserSolutions($uid);
+                    
                     $_SESSION['mainAlert'] = echoAlertBox('good', 'Zalogowano');
                     header('Location: ../');
 
