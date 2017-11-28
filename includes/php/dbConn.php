@@ -1,5 +1,4 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/config/dbConfig.php';
 
     class DatabaseConnection {
 
@@ -15,10 +14,12 @@
         //Nie zwraca żadnej wartości
         public function __construct () { 
 
-            $this->serverAddress = $GLOBALS['serverAddress'];
-            $this->dbName = $GLOBALS['site_dbName']; 
-            $this->userName = $GLOBALS['site_operationsUserName']; 
-            $this->userPass = $GLOBALS['site_operationsUserPass']; 
+            require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/config/dbConfig.php';
+
+            $this->serverAddress = $serverAddress;
+            $this->dbName = $site_dbName;
+            $this->userName = $site_operationsUserName;
+            $this->userPass = $site_operationsUserPass; 
 
             if ($this->mysqliConn = new mysqli($this->serverAddress, $this->userName, $this->userPass, $this->dbName)) {
                 $this->mysqliConn->set_charset('utf8');
@@ -345,7 +346,7 @@
                         $arrayForReturn['numOfPoints'] = $row['num_of_points'];
 
                     } else {
-                        throw new Exception('Błąd zapytania do bazy');
+                        throw new Exception('Błąd przy pobieraniu rozwiązań');
                     }
                 } else {
                     $arrayForReturn['numOfPoints'] = 0;
@@ -354,9 +355,26 @@
                 return $arrayForReturn;
 
             } else {
-                throw new Exception('Błąd zapytania do bazy');
+                throw new Exception('Błąd przy pobieraniu rozwiązań');
             }
 
+        }
+
+        //Fukcja dodaje rozwiązanie użtykownika do tabeli solutions
+        //Zwraca true jeśli się udało dodać wiersz
+        public function updateUserSolutions ($userId, $levelName) {
+
+            $this->mysqliConn->query('INSERT INTO solutions VALUES (DEFAULT, 27, (SELECT level_id FROM levels WHERE level_name = "basic1"), CURRENT_TIMESTAMP())');
+
+            /* if ($stmt = $this->mysqliConn->prepare('INSERT INTO solutions VALUES (DEFAULT, ?, (SELECT level_id FROM levels WHERE level_name = ?), CURRENT_TIMESTAMP())')) {
+                $stmt->bind_param('is', $userId, $levelName);
+                $stmt->execute();
+                $stmt->close();
+
+                return true;
+            } else {
+                throw new Exception('Błąd przy dodawaniu wiersza do bazy');
+            } */
         }
 
         //Funkcja wykonuje podane zapytanie SQL

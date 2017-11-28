@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../../includes/css/levelsTable.css">
     <script src="/HackMeZSK/includes/js/hideAlertBox.js"></script>
     <style>
-        #HTMLLevelsLink {
+        #BasicLevelsLink {
             background-color: #66fcf1;
             color: #0b0c10;
         }
@@ -14,12 +14,13 @@
 <?php /* </HEAD> */ require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
+    <?php echoSessionAlert('levelsAlert'); ?>
     <?php
         require_once '../../includes/php/dbConn.php';
         try {
 
             $conn = new DatabaseConnection();
-            if ($result = $conn->customQuery('SELECT levels.level_id, levels.level_name, levels.description, levels.points, levels.link FROM levels INNER JOIN categories on levels.category_id = categories.category_id WHERE categories.category_name = "HTML"')) {
+            if ($result = $conn->customQuery('SELECT levels.level_id, levels.level_name, levels.description, levels.points, levels.link FROM levels INNER JOIN categories on levels.category_id = categories.category_id WHERE categories.category_name = "Basic"')) {
 
                 $i = 1;
                 echo '<table id="levelsTable">';
@@ -33,13 +34,13 @@
                             <td>'.$row['description'].'</td>
                             <td>'.$row['points'].'</td>
                             <td id="levelsTableLinkToLevel"><a href="'.$row['link'].'" class="niceLink">Link</a></td>';
-                            if (in_array($row['level_name'], $_SESSION['userSolutions'])) {
+                            if (in_array($row['level_name'], $_SESSION['userSolutions'], true)) {
                                 echo '<td id="levelsTableDoneSymbol">&#x2714;</td>';
                             } else {
                                 echo '<td id="levelsTableNotDoneSymbol">&#x2718;</td>';
                             } echo '
                         </tr>
-                    ';    
+                    ';
                     $i++;
                 }
                 echo '</table>';

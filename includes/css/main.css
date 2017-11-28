@@ -93,7 +93,7 @@ body, html {
 #userPoints {
     color: #c5c6c7;
     padding-top: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 13px;
     width: 100%;
     text-align: center;
     background-color: #1f2833;
@@ -125,9 +125,9 @@ body, html {
 }
 #rightSide table caption {
     font-size: 17px;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
     background-color: #1f2833;
-    padding-top: 3px;
+    padding-top: 5px;
 }
 .alertBox {
     position: absolute;

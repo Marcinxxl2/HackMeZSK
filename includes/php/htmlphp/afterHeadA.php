@@ -15,8 +15,7 @@
         </div>
         <div id="leftSide">
             <p>Kategorie</p>
-            <a href="/HackMeZSK/levels/html/"><div class="niceButton" id="HTMLLevelsLink">HTML</div></a>
-            <a href="/HackMeZSK/levels/js/"><div class="niceButton" id="JSLevelsLink">JavaScript</div></a>
+            <a href="/HackMeZSK/levels/basic/"><div class="niceButton" id="BasicLevelsLink">Podstawowe</div></a>
             <a href="/HackMeZSK/levels/php/"><div class="niceButton" id="PHPLevelsLink">PHP</div></a>
             <a href="/HackMeZSK/levels/sql/"><div class="niceButton" id="SQLLevelsLink">SQL</div></a>
         </div>

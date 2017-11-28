@@ -4,8 +4,8 @@ $(document).ready(function () {
     var validate = {
         login: false,
         email: false,
-        firstname: false,
-        lastname: false,
+        firstname: true,
+        lastname: true,
         pass1: false,
         pass2: false,
     };
@@ -37,8 +37,8 @@ $(document).ready(function () {
 
     var regLogin = /^\w{2,45}$/;
     var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var regFirstname = /^[\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,45}$/;
-    var regLastname = /^[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}(\-[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}$)?$/;
+    var regFirstname = /(^[\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,45}$)|(^$)/;
+    var regLastname = /^([\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}(\-[\wąężćńółĄĆĘŁŃÓŚŹŻ]{2,32}$)?$)|(^$)/;
     var regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,45}$/; //Minimum 8 znaków, przynajmniej jedna litera, cyfra i znak specjalny
     
     function switchClass (element, classToRemoveName, classToAddName) {
@@ -145,8 +145,6 @@ $(document).ready(function () {
             $(aRegu).text('');
         }
     });
-
-
     
     function allOk () {
         for (var i in validate) {
@@ -182,8 +180,14 @@ $(document).ready(function () {
             $(this).trigger('input');
         }
     });
- 
 
+    //Usuwanie klas dla imienia i nazwisko gdy nie ma nic wpisane (bo nie jest obowiązkowe)
+    $([elFirstname, elLastname]).on('input', function () {
+        if ($(this).val() == '') {
+            $(this).removeClass();
+        }
+    });
+ 
 });
 
 

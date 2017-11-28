@@ -47,12 +47,12 @@
         <div class="regisSide">
             <div>
                 <div class="regisLegend">Podaj E-mail: *</div>
-                <input type="text" name="email" maxlpth="45" tabindex='2'>
+                <input type="text" name="email" maxlength="45" tabindex='2'>
                 <div id="alertEmail" class="regisAlert"><?php echoSessionAlert('emailAlreadyExists'); ?></div>
             </div>
             <div>
                 <div class="regisLegend">Podaj nazwisko:</div>
-                <input type="text" name="lastname" maxlength="45" tabindex='4'>
+                <input type="text" name="lastname" maxlength="65" tabindex='4'>
                 <div id="alertLastname" class="regisAlert"></div>
             </div>
             <div>
