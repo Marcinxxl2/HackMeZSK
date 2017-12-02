@@ -8,13 +8,19 @@
     <meta charset="UTF-8">
     <title>HackMeZSK - zadanie <?php echo basename(__DIR__); ?></title>
     <link rel="stylesheet" href="../../../includes/css/levels.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() { 
+            document.getElementById("pass").value = 'gf80tfp0';
+        });       
+    </script>
+    
 </head>
 <body>
     <div id="formDiv">
+        Pole do odczytania: <input type="password" id="pass"><br><br>
         <form action="check.php" method="POST">
             Podaj hasło: <input type="text" name="pass">
             <input type="submit">
-            <!-- Hasło to: 81jads9d -->
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
     </div>

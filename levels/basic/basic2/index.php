@@ -7,14 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <title>HackMeZSK - zadanie <?php echo basename(__DIR__); ?></title>
-    <link rel="stylesheet" href="../../../includes/css/levels.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div id="formDiv">
         <form action="check.php" method="POST">
             Podaj hasło: <input type="text" name="pass">
             <input type="submit">
-            <!-- Hasło to: 81jads9d -->
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
     </div>

@@ -1,6 +1,11 @@
 <?php
 
     session_start();
+    
+    if (isset($_SESSION['userData'])) {
+        header('Location: ../');
+        exit();
+    }
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         header('Location: index.php');

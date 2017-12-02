@@ -1,6 +1,6 @@
 @font-face {
     font-family: open-sans;
-    src: url(font/OpenSans-Regular.ttf); 
+    src: url(/HackMeZSK/includes/css/font/OpenSans-Regular.ttf); 
 }
 * {
     font-family: open-sans, sans-serif;
@@ -13,9 +13,10 @@ body {
     color: #c5c6c7;
     margin-left: 15px;
     margin-top: 20px;
-    text-align: center;
     width: 400px;
+    text-align: center;
 }
+/* Haslo to: 23ft21dg */
 #alertLevel {
     margin-top: 5px;
     color: #dc3545;

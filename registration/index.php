@@ -1,3 +1,11 @@
+<?php 
+    session_start();
+
+    if (isset($_SESSION['userData'])) {
+        header('Location: ../');
+        exit();
+    }
+?>
 <?php require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/echoFunctions.php'; ?>
 
 <?php /* PODAJ DODATKI DO HEAD PO TEJ LINI */ require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/beforeHeadA.php'; ?>

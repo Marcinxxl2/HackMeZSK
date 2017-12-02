@@ -14,6 +14,7 @@
 <?php /* </HEAD> */ require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/htmlphp/afterHeadA.php'; ?>
 
 <div id="content">
+    <?php echoSessionAlert('levelsAlert'); ?>
     <?php
         require_once '../../includes/php/dbConn.php';
         try {

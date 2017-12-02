@@ -364,9 +364,7 @@
         //Zwraca true jeśli się udało dodać wiersz
         public function updateUserSolutions ($userId, $levelName) {
 
-            $this->mysqliConn->query('INSERT INTO solutions VALUES (DEFAULT, 27, (SELECT level_id FROM levels WHERE level_name = "basic1"), CURRENT_TIMESTAMP())');
-
-            /* if ($stmt = $this->mysqliConn->prepare('INSERT INTO solutions VALUES (DEFAULT, ?, (SELECT level_id FROM levels WHERE level_name = ?), CURRENT_TIMESTAMP())')) {
+            if ($stmt = $this->mysqliConn->prepare('INSERT INTO solutions VALUES (DEFAULT, ?, (SELECT level_id FROM levels WHERE level_name = ?), CURRENT_TIMESTAMP())')) {
                 $stmt->bind_param('is', $userId, $levelName);
                 $stmt->execute();
                 $stmt->close();
@@ -374,7 +372,7 @@
                 return true;
             } else {
                 throw new Exception('Błąd przy dodawaniu wiersza do bazy');
-            } */
+            } 
         }
 
         //Funkcja wykonuje podane zapytanie SQL

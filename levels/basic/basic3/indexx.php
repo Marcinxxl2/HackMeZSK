@@ -14,7 +14,6 @@
         <form action="check.php" method="POST">
             Podaj hasło: <input type="text" name="pass">
             <input type="submit">
-            <!-- Hasło to: 81jads9d -->
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
     </div>

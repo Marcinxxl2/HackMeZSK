@@ -13,13 +13,14 @@
 
                 require $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/dbConn.php';
                 $conn = new DatabaseConnection();
-                $conn->updateUserSolutions($uid, 'basic1');
+                $conn->updateUserSolutions($uid, $levelName);
                 $_SESSION['userSolutions'] = $conn->getUserSolutions($uid);
                 $conn->closeConnection();
-
+                $_SESSION['levelsAlert'] = echoAlertBox('good', 'Wykonano zadanie: '.$levelName);
+            } else {
+                $_SESSION['levelsAlert'] = echoAlertBox('good', 'Wykonano ponownie zadanie: '.$levelName);
             }
 
-            $_SESSION['levelsAlert'] = echoAlertBox('good', 'Wykonano zadanie: '.$levelName);
             header('Location: ../');
             
         }

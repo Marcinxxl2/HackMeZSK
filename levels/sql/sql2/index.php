@@ -12,11 +12,23 @@
 <body>
     <div id="formDiv">
         <form action="check.php" method="POST">
-            Podaj hasło: <input type="text" name="pass">
-            <input type="submit">
-            <!-- Hasło to: 81jads9d -->
+            Podaj login: <input type="text" name="login"><br><br>
+            Podaj hasło: <input type="pass" name="pass"><br><br>
+            <input type="submit" value="Zaloguj">
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
     </div>
+<!-- Podpowiedź - fragment kodu PHP: 
+
+$login = $_POST['login'];
+$pass = $_POST['pass'];
+$regEx = '/(and|or|\||\&)/i';
+if (preg_match($regEx, $login) || preg_match($regEx, $pass)) {
+    $_SESSION['levelAlert'] = '<div id="alertLevel">Nieporawny login lub hasło</div>';
+    header('Location: ./');
+    exit();
+}
+
+-->
 </body>
 </html>

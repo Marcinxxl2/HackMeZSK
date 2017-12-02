@@ -12,9 +12,9 @@
 <body>
     <div id="formDiv">
         <form action="check.php" method="POST">
-            Podaj hasło: <input type="text" name="pass">
-            <input type="submit">
-            <!-- Hasło to: 81jads9d -->
+            Podaj login: <input type="text" name="login"><br><br>
+            Podaj hasło: <input type="pass" name="pass"><br><br>
+            <input type="submit" value="Zaloguj">
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
     </div>
