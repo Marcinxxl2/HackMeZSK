@@ -46,7 +46,7 @@
 
             } else {
                 $_SESSION['loginError'] = 'Niepoprawne dane logowania';
-                header('Location: /');
+                header('Location: ./');
             }
 
             $conn->closeConnection();
@@ -56,7 +56,7 @@
         }
     } else {
         $_SESSION['loginError'] = 'Niepoprawne dane logowania';
-        header('Location: /');
+        header('Location: ./');
     }
 
 ?>
