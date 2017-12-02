@@ -1,0 +1,1 @@
+var form=document.forms['form'];var pass=form.pass;var button=document.getElementById('button');var alert=document.getElementById('alertLevel');button.addEventListener('click',function(){if(pass.value==location.href.split("/").slice(-1)){form.submit();}else{alert.innerHTML='Niepoprawne hasło';}});

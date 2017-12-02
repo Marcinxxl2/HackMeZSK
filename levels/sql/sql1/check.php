@@ -1,15 +1,18 @@
 <?php 
     require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/levelsNotLoggedA.php'; 
     require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/includes/php/levelsAddSolution.php'; 
+    require_once $_SERVER['DOCUMENT_ROOT'].'/HackMeZSK/config/levelsConfig/level1-4_dbConfig.php'; 
 
     if (isset($_POST['login']) && isset($_POST['pass'])) {
 
-        $levelConn = new mysqli('localhost', 'hackmezsk_levels_sql1_user', '4ibSZbiMOLH8tH6M', 'hackmezsk_levels_sql1');
 
         $login = $_POST['login'];
         $pass = $_POST['pass'];
 
+        $levelConn = new mysqli($dbAddr, $dbUser, $dbUserPass, $dbName);
+
         $result = $levelConn->query("SELECT user_id FROM users WHERE login = '$login' AND pass = '$pass'");
+        $levelConn->close();
 
         if ($result->num_rows > 0) {
             addSolution(basename(__DIR__));

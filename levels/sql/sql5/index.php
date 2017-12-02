@@ -20,13 +20,8 @@
     </div>
 <!-- Podpowiedź - fragment kodu PHP: 
 
-$login = $_POST['login'];
-$pass = $_POST['pass'];
-$regEx = '/(and|or|\||\&)/i';
-if (preg_match($regEx, $login) || preg_match($regEx, $pass)) {
-    $_SESSION['levelAlert'] = '<div id="alertLevel">Nieporawny login lub hasło</div>';
-    header('Location: ./');
-    exit();
+if (md5($_POST['pass']) === $row['hash']) {
+    addSolution('sql5');
 }
 
 -->

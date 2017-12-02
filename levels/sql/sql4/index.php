@@ -13,7 +13,7 @@
     <div id="formDiv">
         <form action="check.php" method="POST">
             Podaj login: <input type="text" name="login"><br><br>
-            Podaj hasło: <input type="pass" name="pass"><br><br>
+            Podaj hasło: <input type="password" name="pass"><br><br>
             <input type="submit" value="Zaloguj">
         </form>
         <?php echoSessionAlert('levelAlert'); ?>
@@ -28,6 +28,7 @@ if (preg_match($regEx, $login) || preg_match($regEx, $pass)) {
     header('Location: ./');
     exit();
 }
+
 -->
 </body>
 </html>

@@ -1,9 +1,4 @@
 PHP:
-- Zrobić interfejs dla zalogowanego użytkownika
-- Zrobić zakładkę konto z tabelą ile punktów się ma i jakie zadania już zostały rozwiązanie a jakie nie
 
 Mysql:
 - Zrobienie skryptu w mysql który będzie usuwał nieaktywowane konta starsze niż 60 dni
-- Stworzyć widok pokazujący rozwiązania danego użytkownika, aby potem pobrać je do tablicy w php
-- Stworzyć widok pokazujący ile punktów ma dany użytkownik
-- Stworzyć widok pokazujący ile punktów ma dany użytkownik w formie rankingu (posegregowane, tylko aktywne konta, może nawet LIMIT 10)

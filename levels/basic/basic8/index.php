@@ -11,12 +11,13 @@
 </head>
 <body>
     <div id="formDiv">
-        <form action="check.php" method="POST">
-            Podaj login: <input type="text" name="login"><br><br>
-            Podaj hasło: <input type="password" name="pass"><br><br>
-            <input type="submit" value="Zaloguj">
+        Podaj hasło: <input type="text" name="pass" id="pass"><br><br>
+        <form action="check.php" method="POST" id="form">
+            <input type="hidden" name="pass" value="">
+            <button type="button" id="button">Prześlij</button>
         </form>
-        <?php echoSessionAlert('levelAlert'); ?>
+        <div id="alertLevel"><?php echoSessionAlert('levelAlert'); ?></div>
     </div>
+    <script src="js/validate.js"></script>
 </body>
 </html>
