@@ -35,7 +35,7 @@ $result = $levelConn->query("SELECT hash FROM users WHERE login = '$login' AND a
 if ($result->num_rows === 1) {
     $row = $result->fetch_assoc();
     if (password_verify($pass, $row['hash'])) {
-        addSolution(basename('sql6'));
+        addSolution('sql6');
     }
 }
 
