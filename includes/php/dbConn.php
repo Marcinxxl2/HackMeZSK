@@ -99,7 +99,12 @@
                     $stmt->close();
 
                     $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?&a='.$activationCode; //W wersji produkcyjnej trzeba zmienić ten link
-
+                    $headerFields = array(
+                        "From: hackmezsk@gmail.com",
+                        "MIME-Version: 1.0",
+                        "Content-type: text/html; charset=utf-8",
+                        "Content-Transfer-Encoding: 8bit"
+                    );
                     /* 
                     Aby wysyłanie maili zadziałało trzeba ustawić:
                     W php.ini:
@@ -115,7 +120,7 @@
                         force_sender=hackmezsk@gmail.com
                     */
 
-                    mail($email, 'Aktywacja konta', 'Link aktywacyjny: '.$activationLink.' <br> Jeśli nie aktywujesz swojego konta w przeciągu 30 dni, zostanie one usunięte i będziesz musiał zarejstrować je na nowo.', 'Content-Type: text/html; charset=UTF-8');
+                    mail($email, 'Aktywacja konta', 'Link aktywacyjny: '.$activationLink.' <br> Jeśli nie aktywujesz swojego konta w przeciągu 30 dni, zostanie one usunięte i będziesz musiał zarejstrować je na nowo.', implode("\r\n", $headerFields));
                     
                     return $userId;
 
@@ -143,7 +148,13 @@
                     $row = $result->fetch_assoc();
 
                     $activationLink = '127.0.0.1/HackMeZSK/technical/activation.php?&a='.$row['con_key'];
-                    mail($row['email'], 'Ponownie wysłany link aktywacyjny', 'Link aktywacyjny: '.$activationLink, 'Content-Type: text/html; charset=UTF-8');
+                    $headerFields = array(
+                        "From: hackmezsk@gmail.com",
+                        "MIME-Version: 1.0",
+                        "Content-type: text/html; charset=utf-8",
+                        "Content-Transfer-Encoding: 8bit"
+                    );
+                    mail($row['email'], 'Ponownie wysłany link aktywacyjny', 'Link aktywacyjny: '.$activationLink, implode("\r\n", $headerFields));
                     
                     return true;
                 } else {
@@ -185,8 +196,14 @@
                         $stmt->close();
 
                         $passwordChangeLink = '127.0.0.1/HackMeZSK/technical/passRemindChange/index.php?&c='.$passwordChangeCode;
+                        $headerFields = array(
+                            "From: hackmezsk@gmail.com",
+                            "MIME-Version: 1.0",
+                            "Content-type: text/html; charset=utf-8",
+                            "Content-Transfer-Encoding: 8bit"
+                        );
 
-                        mail($email, 'Reset hasła', 'Link do zmiany hasła: '.$passwordChangeLink, 'Content-Type: text/html; charset=UTF-8');
+                        mail($email, 'Reset hasła', 'Link do zmiany hasła: '.$passwordChangeLink, implode("\r\n", $headerFields));
                         return true;
 
                     } else {

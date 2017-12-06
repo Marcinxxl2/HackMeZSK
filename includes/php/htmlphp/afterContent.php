@@ -29,7 +29,7 @@
             ?>
         </div>
         <div id="footer">
-                Marcin Tajser &copy; <?php echo date('Y') ?>
+                Marcin Tajsner &copy; <?php echo date('Y') ?>
         </div>
     </div>
 </body>
