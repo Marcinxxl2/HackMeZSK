@@ -34,7 +34,7 @@
                             <td>'.$row['description'].'</td>
                             <td>'.$row['points'].'</td>
                             <td id="levelsTableLinkToLevel"><a href="'.$row['link'].'" class="niceLink">Link</a></td>';
-                            if (in_array($row['level_name'], $_SESSION['userSolutions'])) {
+                            if (in_array($row['level_name'], $_SESSION['userSolutions'], true)) {
                                 echo '<td id="levelsTableDoneSymbol">&#x2714;</td>';
                             } else {
                                 echo '<td id="levelsTableNotDoneSymbol">&#x2718;</td>';
