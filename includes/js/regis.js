@@ -70,7 +70,7 @@ $(document).ready(function () {
 
     var regPassLetter = /[a-zA-Z]+/;
     var regPassDigit = /[0-9]+/;
-    var regPassSpecial = /[\W]+/;
+    var regPassSpecial = /[@$!%*#?&]+/;
 
     $(elPass1).on('focus', function () {
        $('#passwordMeter').show(200); 
