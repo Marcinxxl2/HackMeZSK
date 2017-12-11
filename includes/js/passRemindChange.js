@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     var regPassLetter = /[a-zA-Z]+/;
     var regPassDigit = /[0-9]+/;
-    var regPassSpecial = /[\W]+/;
+    var regPassSpecial = /[@$!%*#?&]+/;
 
     function switchClass (element, classToRemoveName, classToAddName) {
         $(element).removeClass(classToRemoveName);
